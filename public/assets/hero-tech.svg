@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 610" fill="none" role="img" aria-label="Illustration of a laptop surrounded by digital applications and analytics panels">
+  <defs>
+    <linearGradient id="screen" x1="235" y1="145" x2="600" y2="460" gradientUnits="userSpaceOnUse"><stop stop-color="#6332AC"/><stop offset=".48" stop-color="#34105C"/><stop offset="1" stop-color="#0D153D"/></linearGradient>
+    <linearGradient id="bezel" x1="200" y1="110" x2="660" y2="465" gradientUnits="userSpaceOnUse"><stop stop-color="#A878E5"/><stop offset=".5" stop-color="#462781"/><stop offset="1" stop-color="#1F1148"/></linearGradient>
+    <linearGradient id="base" x1="267" y1="420" x2="684" y2="544" gradientUnits="userSpaceOnUse"><stop stop-color="#A876E6"/><stop offset=".36" stop-color="#5E37A2"/><stop offset="1" stop-color="#1B1744"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#31CAEC" stop-opacity=".8"/><stop offset="1" stop-color="#8B72EE" stop-opacity=".18"/></linearGradient>
+    <linearGradient id="magenta" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F448D5"/><stop offset="1" stop-color="#8B72EE"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#9C3EF5" stop-opacity=".42"/><stop offset="1" stop-color="#9C3EF5" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="23" stdDeviation="24" flood-color="#070220" flood-opacity=".6"/></filter>
+  </defs>
+  <ellipse cx="438" cy="330" rx="355" ry="285" fill="url(#halo)"/>
+  <g opacity=".38" stroke="#AA58F5" stroke-width="2"><path d="M79 249h51m-25-25v49M692 160h66m-33-33v65"/><path d="M92 448h44M696 420h45" stroke-dasharray="4 8"/></g>
+  <g opacity=".35"><circle cx="178" cy="100" r="4" fill="#27BDEB"/><circle cx="731" cy="313" r="5" fill="#E845CF"/><circle cx="661" cy="73" r="3" fill="#D4ABFF"/><circle cx="145" cy="367" r="3" fill="#D4ABFF"/></g>
+  <g filter="url(#shadow)">
+    <path d="M226 126 603 208q9 2 9 13v235q0 10-10 8l-377-92q-11-3-11-15V137q0-13 12-11Z" fill="#1D0D45" stroke="url(#bezel)" stroke-width="12"/>
+    <path d="m234 149 354 77v211l-354-86V149Z" fill="url(#screen)" stroke="#AA77F1" stroke-opacity=".48" stroke-width="2"/>
+    <path d="m224 377 379 91 111 58q14 9-3 16l-371 5q-15 0-26-7l-126-106q-14-15 5-16l31-41Z" fill="url(#base)" stroke="#B07BEE" stroke-width="3"/>
+    <path d="m264 412 322 77 65 32-318-6-87-76 18-27Z" fill="#130F36" opacity=".62"/>
+    <path d="m329 527 355 4" stroke="#E6B3FF" stroke-opacity=".6" stroke-width="3"/>
+    <g stroke="#A67FE4" stroke-opacity=".34" stroke-width="1.7">
+      <path d="m291 434 314 79M309 449l316 69M326 463l320 61M344 477l319 54"/>
+      <path d="m331 443 43 82m8-71 38 71m9-63 33 64m13-55 24 54m21-46 17 46m26-38 9 38"/>
+    </g>
+    <path d="m441 525 68 1 19 9-72 1-15-11Z" fill="#A47BDE" opacity=".55"/>
+  </g>
+  <g transform="translate(78 160) rotate(-7)" filter="url(#shadow)">
+    <rect x="0" y="0" width="225" height="226" rx="13" fill="#30145F" stroke="#A95EF5" stroke-width="2.4"/>
+    <rect x="0" y="0" width="225" height="29" rx="13" fill="#8346BC"/>
+    <circle cx="17" cy="14" r="4" fill="#F964DE"/><circle cx="32" cy="14" r="4" fill="#29B7DD"/><circle cx="47" cy="14" r="4" fill="#E3ACF3"/>
+    <g opacity=".9" stroke-linecap="round" stroke-width="5"><path d="M23 55h58" stroke="#28C3E6"/><path d="M40 75h110" stroke="#A778FA"/><path d="M55 95h95" stroke="#D355E6"/><path d="M33 116h155" stroke="#29B7DD"/><path d="M54 138h84" stroke="#BA91FF"/><path d="M25 159h168" stroke="#825CE6"/><path d="M48 182h94" stroke="#29B7DD"/><path d="M67 203h104" stroke="#B65BE0"/></g>
+    <g fill="#E2CEFF" opacity=".7"><circle cx="23" cy="75" r="3"/><circle cx="38" cy="95" r="3"/><circle cx="22" cy="138" r="3"/><circle cx="32" cy="182" r="3"/></g>
+  </g>
+  <g transform="translate(486 77) rotate(10)" filter="url(#shadow)">
+    <rect width="212" height="162" rx="11" fill="#36145E" stroke="#B468FA" stroke-width="2.5"/>
+    <rect x="0" y="0" width="212" height="32" rx="11" fill="url(#magenta)" opacity=".85"/>
+    <circle cx="19" cy="16" r="4" fill="white" opacity=".65"/><circle cx="34" cy="16" r="4" fill="white" opacity=".4"/>
+    <path d="M25 129V54M25 129h160" stroke="#BB9CED" stroke-opacity=".5" stroke-width="2"/>
+    <path d="m37 113 38-32 35 16 33-43 35 18" stroke="#29D2F0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="75" cy="81" r="5" fill="#29D2F0"/><circle cx="143" cy="54" r="5" fill="#29D2F0"/>
+    <path d="m37 113 38-32 35 16 33-43 35 18v57H37Z" fill="#38C9E9" opacity=".13"/>
+  </g>
+  <g transform="translate(507 354) rotate(8)">
+    <rect width="196" height="51" rx="25.5" fill="#30BCE6" filter="url(#shadow)"/>
+    <g fill="white" opacity=".93" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="17"><text x="26" y="32">DATA</text><text x="106" y="32">APPS</text></g>
+    <path d="M90 12v27" stroke="white" stroke-opacity=".5"/>
+  </g>
+  <g transform="translate(350 59) rotate(12)" filter="url(#shadow)"><rect width="94" height="44" rx="10" fill="#29B7DD"/><path d="m20 24 13-10 13 10-13 10-13-10Zm30-7h24M50 26h18" stroke="#F2FCFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="626" cy="126" r="30" fill="#E547DB" opacity=".55" filter="url(#glow)"/>
+</svg>

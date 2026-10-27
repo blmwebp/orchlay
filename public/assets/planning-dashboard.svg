@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 490" role="img" aria-label="Illustration of a planning dashboard">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="760" y2="490" gradientUnits="userSpaceOnUse"><stop stop-color="#27B7CA"/><stop offset="1" stop-color="#6AD5E6"/></linearGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#087D96" flood-opacity=".25"/></filter>
+  </defs>
+  <rect width="760" height="490" fill="url(#bg)"/>
+  <g opacity=".15" stroke="#FFF"><circle cx="652" cy="50" r="125"/><circle cx="95" cy="445" r="158"/><path d="M0 95h760M0 190h760M0 285h760M0 380h760M160 0v490M320 0v490M480 0v490M640 0v490"/></g>
+  <rect x="58" y="53" width="644" height="384" rx="12" fill="#F7FAFF" filter="url(#sh)"/>
+  <path d="M70 53h620q12 0 12 12v38H58V65q0-12 12-12Z" fill="#263B6D"/>
+  <circle cx="81" cy="78" r="5" fill="#F26AA2"/><circle cx="101" cy="78" r="5" fill="#F9C873"/><circle cx="121" cy="78" r="5" fill="#43CDCF"/>
+  <text x="153" y="84" font-family="Arial, sans-serif" font-weight="bold" font-size="17" fill="#FFFFFF">Connected Planning Dashboard</text>
+  <rect x="80" y="127" width="184" height="97" rx="8" fill="#FFFFFF" stroke="#E0E8F1"/>
+  <text x="96" y="150" font-family="Arial" font-size="13" fill="#61718D">Planning overview</text>
+  <path d="M98 190h136" stroke="#DEE5ED" stroke-width="4" stroke-linecap="round"/><path d="M98 207h103" stroke="#DDE7F1" stroke-width="4" stroke-linecap="round"/><path d="M98 168h65" stroke="#2AAFC5" stroke-width="10" stroke-linecap="round"/>
+  <rect x="279" y="127" width="186" height="97" rx="8" fill="#FFFFFF" stroke="#E0E8F1"/>
+  <text x="295" y="150" font-family="Arial" font-size="13" fill="#61718D">Budget scenarios</text>
+  <g stroke="#E3EAF2"><path d="M300 197h142M300 176h142"/></g>
+  <path d="m299 195 34-19 33 8 28-23 38 6" stroke="#7E70E4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="480" y="127" width="199" height="97" rx="8" fill="#FFFFFF" stroke="#E0E8F1"/>
+  <text x="496" y="150" font-family="Arial" font-size="13" fill="#61718D">Forecast mix</text>
+  <circle cx="540" cy="187" r="26" stroke="#DCE6F1" stroke-width="12"/><path d="M540 161a26 26 0 0 1 21 42" stroke="#29B7DD" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M581 171h76M581 188h53M581 205h62" stroke="#DCE5F0" stroke-width="5" stroke-linecap="round"/>
+  <rect x="80" y="242" width="380" height="169" rx="8" fill="#FFFFFF" stroke="#E0E8F1"/>
+  <text x="97" y="264" font-family="Arial" font-size="13" fill="#61718D">Performance by period</text>
+  <g stroke="#E7EDF4"><path d="M102 378h334M102 342h334M102 306h334"/></g>
+  <g fill="#8B72EE"><rect x="123" y="335" width="24" height="43" rx="3"/><rect x="189" y="319" width="24" height="59" rx="3"/><rect x="255" y="298" width="24" height="80" rx="3"/><rect x="321" y="284" width="24" height="94" rx="3"/><rect x="387" y="309" width="24" height="69" rx="3"/></g>
+  <g fill="#29B7DD"><rect x="149" y="349" width="17" height="29" rx="3"/><rect x="215" y="332" width="17" height="46" rx="3"/><rect x="281" y="320" width="17" height="58" rx="3"/><rect x="347" y="300" width="17" height="78" rx="3"/><rect x="413" y="315" width="17" height="63" rx="3"/></g>
+  <rect x="476" y="242" width="203" height="169" rx="8" fill="#FFFFFF" stroke="#E0E8F1"/>
+  <text x="492" y="264" font-family="Arial" font-size="13" fill="#61718D">Planning stages</text>
+  <g fill="#DDE6F1"><rect x="492" y="285" width="171" height="13" rx="6"/><rect x="492" y="317" width="171" height="13" rx="6"/><rect x="492" y="349" width="171" height="13" rx="6"/><rect x="492" y="381" width="171" height="13" rx="6"/></g>
+  <rect x="492" y="285" width="140" height="13" rx="6" fill="#29B7DD"/><rect x="492" y="317" width="115" height="13" rx="6" fill="#8B72EE"/><rect x="492" y="349" width="156" height="13" rx="6" fill="#29B7DD"/><rect x="492" y="381" width="91" height="13" rx="6" fill="#8B72EE"/>
+</svg>

@@ -1,0 +1,192 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 630 640"
+     role="img"
+     aria-label="Connected cloud and enterprise analytics illustration">
+
+  <defs>
+    <!-- Navy background -->
+    <linearGradient id="g" x1="0" y1="0" x2="630" y2="640"
+                    gradientUnits="userSpaceOnUse">
+      <stop stop-color="#24527A"/>
+      <stop offset=".55" stop-color="#17365D"/>
+      <stop offset="1" stop-color="#102844"/>
+    </linearGradient>
+
+    <!-- Teal gradient -->
+    <linearGradient id="c" x1="300" y1="230" x2="580" y2="560"
+                    gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52D3C8"/>
+      <stop offset="1" stop-color="#008C83"/>
+    </linearGradient>
+
+    <filter id="s">
+      <feDropShadow
+        dx="0"
+        dy="16"
+        stdDeviation="18"
+        flood-color="#071C30"
+        flood-opacity=".30"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="630" height="640" fill="url(#g)"/>
+
+  <circle cx="485" cy="145" r="175"
+          fill="#008C83" opacity=".18"/>
+
+  <circle cx="165" cy="518" r="200"
+          fill="#D4AF37" opacity=".08"/>
+
+  <path d="M0 493C134 423 239 512 344 446s177-70 286-14V640H0Z"
+        fill="#0E4B62" opacity=".45"/>
+
+  <!-- Decorative network -->
+  <g opacity=".23" stroke="#A6DDD8">
+    <path d="M28 76h126m-63-63v126M509 474h84m-42-42v84"/>
+    <circle cx="504" cy="100" r="47"
+            stroke-dasharray="4 8"/>
+  </g>
+
+  <!-- Main analytics dashboard -->
+  <g filter="url(#s)">
+
+    <rect x="87" y="136" width="452" height="315"
+          rx="16" fill="#102844"
+          stroke="#4D96A0" stroke-width="4"/>
+
+    <rect x="104" y="153" width="418" height="275"
+          rx="7" fill="#F4F7FA"/>
+
+    <rect x="104" y="153" width="418" height="39"
+          rx="7" fill="#E6EEF3"/>
+
+    <!-- Window controls -->
+    <circle cx="130" cy="172" r="5" fill="#D4AF37"/>
+    <circle cx="147" cy="172" r="5" fill="#78B6AC"/>
+    <circle cx="164" cy="172" r="5" fill="#008C83"/>
+
+    <!-- Dashboard sidebar -->
+    <rect x="120" y="208" width="95" height="203"
+          rx="9" fill="#E4EDF2"/>
+
+    <rect x="135" y="225" width="54" height="6"
+          rx="3" fill="#B5C7D4"/>
+
+    <rect x="135" y="252" width="65" height="26"
+          rx="6" fill="#17365D"/>
+
+    <rect x="135" y="292" width="65" height="26"
+          rx="6" fill="#D1E1E6"/>
+
+    <rect x="135" y="334" width="65" height="26"
+          rx="6" fill="#D1E1E6"/>
+
+    <!-- Main line chart -->
+    <rect x="236" y="207" width="268" height="88"
+          rx="10" fill="#FFFFFF"/>
+
+    <text x="253" y="230"
+          font-family="Inter, Arial, sans-serif"
+          font-size="12" font-weight="600"
+          fill="#17365D">
+      Enterprise analytics
+    </text>
+
+    <path d="M251 275h232"
+          stroke="#DDE5EC" stroke-width="2"/>
+
+    <path d="M250 272 292 249l39 13 47-20 42 11 56-23"
+          stroke="#008C83"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"/>
+
+    <circle cx="292" cy="249" r="5" fill="#D4AF37"/>
+    <circle cx="378" cy="242" r="5" fill="#D4AF37"/>
+
+    <!-- Bottom chart cards -->
+    <rect x="236" y="309" width="123" height="103"
+          rx="10" fill="#FFFFFF"/>
+
+    <rect x="373" y="309" width="131" height="103"
+          rx="10" fill="#FFFFFF"/>
+
+    <!-- Bar chart -->
+    <g fill="#008C83">
+      <rect x="256" y="366" width="15" height="30" rx="3"/>
+      <rect x="281" y="346" width="15" height="50" rx="3"/>
+      <rect x="306" y="333" width="15" height="63" rx="3"
+            fill="#D4AF37"/>
+      <rect x="331" y="358" width="15" height="38" rx="3"/>
+    </g>
+
+    <!-- Donut chart -->
+    <circle cx="439" cy="360" r="30"
+            stroke="#D7E5EA" stroke-width="16"
+            fill="none"/>
+
+    <path d="M439 330a30 30 0 0 1 24 48"
+          stroke="#008C83"
+          stroke-width="16"
+          stroke-linecap="round"
+          fill="none"/>
+
+    <!-- Laptop stand -->
+    <rect x="244" y="451" width="148" height="18"
+          rx="6" fill="#102844"/>
+
+    <path d="M190 469h252l37 21H152l38-21Z"
+          fill="#34718A"/>
+  </g>
+
+  <!-- Floating automation card -->
+  <g filter="url(#s)">
+    <rect x="397" y="93" width="150" height="78"
+          rx="11" fill="#008C83"/>
+
+    <circle cx="427" cy="132" r="17"
+            fill="#FFFFFF" opacity=".95"/>
+
+    <path d="m418 132 7 7 12-16"
+          fill="none" stroke="#008C83"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <path d="M458 121h67M458 134h53M458 147h35"
+          stroke="#E6FFFB" stroke-width="6"
+          stroke-linecap="round" opacity=".86"/>
+  </g>
+
+  <!-- Floating people/collaboration card -->
+  <g filter="url(#s)">
+    <rect x="57" y="357" width="124" height="111"
+          rx="12" fill="#245B83"/>
+
+    <circle cx="119" cy="397" r="18"
+            stroke="#D4AF37"
+            stroke-width="6"
+            fill="none"/>
+
+    <path d="M93 444c0-17 12-26 26-26s26 9 26 26"
+          fill="none"
+          stroke="#FFFFFF"
+          stroke-width="7"
+          stroke-linecap="round"/>
+  </g>
+
+  <!-- Connected data nodes -->
+  <g opacity=".85">
+    <circle cx="504" cy="530" r="7" fill="#D4AF37"/>
+    <circle cx="478" cy="558" r="4" fill="#52D3C8"/>
+    <circle cx="531" cy="557" r="4" fill="#52D3C8"/>
+
+    <path d="m504 530-26 28m26-28 27 27"
+          stroke="#52D3C8"
+          stroke-width="2"/>
+  </g>
+
+</svg>
