@@ -16,7 +16,6 @@ import worldData from "world-atlas/countries-110m.json";
 const navigation = [
   ['Our Services', '#services'],
   ['About Us', '#about'],
-  ['Get in Touch', '#contact'],
 ]
 
 const process = [
@@ -73,6 +72,7 @@ function Header() {
         <nav id="primary-nav" className={`primary-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
           {navigation.map(([label, href]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
           <a className="nav-external" href="#acterys" onClick={() => setMenuOpen(false)}>Acterys <Icon name="arrowUp" size={14} /></a>
+          <a href="#contact" className="contact-btn">Get in Touch</a>
         </nav>
       </div>
     </header>
