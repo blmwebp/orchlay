@@ -2,15 +2,10 @@ import React, { useState, useEffect } from 'react'
 import ContactForm from './components/ContactForm.jsx'
 import Icon from './components/Icon.jsx'
 import { capabilities, acterysServices } from './data/content.js'
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Graticule,
-  Marker,
-  Line,
-} from "react-simple-maps";
-
+import Team from "./components/Team";
+import { ComposableMap,Geographies,Geography,Graticule,Marker,Line} from "react-simple-maps";
+import ServiceTabs from "./components/ServiceTabs";
+import ServiceSlider from "./components/ServiceSlider";
 import worldData from "world-atlas/countries-110m.json";
 
 const navigation = [
@@ -138,7 +133,8 @@ function Services() {
           <Icon name="arrowUp" size={20} />
         </a>
 
-        <div className="service-details" aria-label="Detailed service offerings">
+            <ServiceTabs/>
+        {/* <div className="service-details" aria-label="Detailed service offerings">
           <div className="details-intro">
             <p className="overline">EXPLORE THE EXPERTISE</p>
             <h3>From strategy to support, we cover the full journey.</h3>
@@ -163,7 +159,7 @@ function Services() {
               )
             })}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )
@@ -186,28 +182,99 @@ function Acterys() {
       <div className="container">
         <div className="acterys-grid" id="acterys">
           <div className="acterys-visual">
-            <p className="overline light-overline">PLANNING & ANALYTICS</p>
-            <h2>What we do<span className="cyan-period">.</span></h2>
-            <div className="dashboard-frame"><img src="/assets/planning.svg" alt="Illustrative connected planning dashboard with charts and budget indicators" /></div>
-            <div className="slide-controls" aria-label="Acterys service topics">
-              {acterysServices.map((item, index) => (
-                <button key={item.title} type="button" className={index === active ? 'active' : ''} aria-label={`Show ${item.title}`} aria-pressed={index === active} onClick={() => setActive(index)} />
-              ))}
+
+            <p className="overline light-overline">
+              PLANNING & ANALYTICS
+            </p>
+
+            <h2>
+              What we do<span className="cyan-period">.</span>
+            </h2>
+             {/* Existing planning dashboard */}
+            <div className="dashboard-frame">
+              <img
+                src="/assets/planning.svg"
+                alt="Connected planning dashboard"
+              />
             </div>
-          </div>
-          <div className="acterys-copy">
-            <span className="partner-kicker">ACTERYS PLANNING & ANALYTICS</span>
-            <h3>Connected Planning.<br /><span>Smarter Decisions.</span></h3>
-            <p>We help organizations implement Acterys solutions that bring budgeting, forecasting, financial planning, and operational analysis into an integrated Power BI experience.</p>
-            <p>Our work covers solution design, implementation, data integration, reporting, customization, and ongoing support.</p>
-            <div key={active} className="acterys-highlight" aria-live="off" >
+            {/* Partnership badge */}
+             <div key={active} className="acterys-highlight" aria-live="off" >
               <span className="highlight-counter">0{active + 1} / 0{acterysServices.length}</span>
                <div key={active} className="acterys-slide-content">
                 <h4>{selected.title}</h4>
                 <p>{selected.body}</p>
               </div>
             </div>
-            <a className="button button-outline-light" href="#contact">Explore Acterys Solutions <Icon name="arrow" size={18} /></a>
+
+            
+
+            {/* Existing slider controls */}
+            <div
+              className="slide-controls"
+              aria-label="Acterys service topics"
+            >
+              {acterysServices.map((item, index) => (
+                <button
+                  key={item.title}
+                  type="button"
+                  className={index === active ? "active" : ""}
+                  aria-label={`Show ${item.title}`}
+                  aria-pressed={index === active}
+                  onClick={() => setActive(index)}
+                />
+              ))}
+            </div>
+
+          </div>
+          <div className="acterys-copy">
+            <span className="partner-kicker">ACTERYS PLANNING & ANALYTICS</span>
+            <h3>Connected Planning.<br /><span>Smarter Decisions.</span></h3>
+            <p>We help organizations implement Acterys solutions that bring budgeting, forecasting, financial planning, and operational analysis into an integrated Power BI experience.</p>
+            <p>Our work covers solution design, implementation, data integration, reporting, customization, and ongoing support.</p>
+           
+            <div className="acterys-partnership">
+
+              <div className="partnership-heading">
+                <span className="partnership-icon">
+                  <Icon name="check" size={15} />
+                </span>
+
+                <span>TECHNOLOGY PARTNER</span>
+              </div>
+
+              <div className="partnership-logo-wrap">
+                <img
+                  src="/assets/acterys.svg"
+                  alt="Acterys"
+                  className="partnership-logo"
+                />
+              </div>
+
+              <p className="partnership-description">
+                As an Acterys technology partner, Orchlay Solutions helps businesses streamline budgeting, forecasting, and financial planning through integrated Power BI and Acterys solutions, enabling smarter, data-driven decisions.
+              </p>
+            </div>
+            <div className="acterys-actions">
+
+              <a
+                href="https://acterys.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button acterys-primary-btn"
+              >
+                Explore Acterys Solutions
+                <Icon name="arrowUp" size={18} />
+              </a>
+
+              <a
+                href="#contact"
+                className="button acterys-secondary-btn"
+              >
+                How We Can Help
+                <Icon name="arrow" size={18} />
+              </a>
+
+            </div>
           </div>
         </div>
       </div>
@@ -246,128 +313,211 @@ const highlightedCountries = new Set([
   "036", // Australia
 ]);
 
+
 function ExperienceMap() {
   return (
     <div className="experience-map">
-      <ComposableMap
-        projection="geoEqualEarth"
-        projectionConfig={{
-          scale: 145,
-          center: [15, 5],
-        }}
-        width={760}
-        height={440}
-        role="img"
-        aria-label="World map showing Orchlay's base in India and delivery experience in the United States and Australia"
-      >
-        <Graticule
-          stroke="#A17ABC"
-          strokeWidth={0.5}
-          opacity={0.2}
-        />
 
-        <Geographies geography={worldData}>
-          {({ geographies }) =>
-            geographies.map((geo) => {
-              const countryId = String(geo.id).padStart(3, "0");
-              const highlighted = highlightedCountries.has(countryId);
+      {/* Header */}
+      <div className="map-header">
+        <div className="map-header-title">
+          <Icon name="globe" size={20} />
+          <span>GLOBAL DELIVERY EXPERIENCE</span>
+        </div>
 
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill={highlighted ? "#7652A5" : "#583179"}
-                  stroke="#8D68AD"
-                  strokeWidth={0.6}
-                  style={{
-                    default: { outline: "none" },
-                    hover: { outline: "none" },
-                    pressed: { outline: "none" },
-                  }}
-                />
-              );
-            })
-          }
-        </Geographies>
+        <span className="map-header-badge">
+          INDIA-BASED
+        </span>
+      </div>
 
-        {/* India → United States: smooth visual connection */}
+      {/* World map */}
+      <div className="map-visual">
+
+        <ComposableMap
+          projection="geoEqualEarth"
+          projectionConfig={{
+            scale: 145,
+            center: [15, 5],
+          }}
+          width={760}
+          height={440}
+          role="img"
+          aria-label="World map showing Orchlay's base in India and delivery experience in the United States and Australia"
+        >
+          {/* Subtle geographic grid */}
+          <Graticule
+            stroke="#8FB1C4"
+            strokeWidth={0.4}
+            opacity={0.12}
+          />
+
+          {/* Country shapes */}
+          <Geographies geography={worldData}>
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const countryId = String(geo.id).padStart(3, "0");
+                const highlighted =
+                  highlightedCountries.has(countryId);
+
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+
+                    fill={
+                      highlighted
+                        ? "#347F87"
+                        : "#345A7A"
+                    }
+
+                    stroke="#6486A0"
+                    strokeWidth={0.45}
+
+                    style={{
+                      default: {
+                        outline: "none",
+                      },
+                      hover: {
+                        outline: "none",
+                      },
+                      pressed: {
+                        outline: "none",
+                      },
+                    }}
+                  />
+                );
+              })
+            }
+          </Geographies>
+
+          {/* India → United States */}
           <path
             d="M 520 178 Q 330 80 148 125"
             fill="none"
-            stroke="#29B7DD"
-            strokeWidth="2"
+            stroke="#52D3C8"
+            strokeWidth={2}
             strokeDasharray="5 6"
             strokeLinecap="round"
-            opacity="0.9"
+            opacity={0.8}
             pointerEvents="none"
           />
 
-        <Line
-          from={locations.india.coordinates}
-          to={locations.australia.coordinates}
-          stroke="#42D4F0"
-          strokeWidth={1.8}
-          strokeDasharray="5 5"
-          strokeLinecap="round"
-          opacity={0.9}
-        />
+          {/* India → Australia */}
+          <Line
+            from={locations.india.coordinates}
+            to={locations.australia.coordinates}
+            stroke="#52D3C8"
+            strokeWidth={2}
+            strokeDasharray="5 6"
+            strokeLinecap="round"
+            opacity={0.8}
+          />
 
-        {/* Country markers */}
-        {Object.entries(locations).map(([key, location]) => (
-          <Marker
-            key={key}
-            coordinates={location.coordinates}
-          >
-            {key === "india" && (
-              <>
-                <circle
-                  r={19}
-                  fill="#29B7DD"
-                  opacity={0.12}
-                />
-                <circle
-                  r={12}
-                  fill="#29B7DD"
-                  opacity={0.2}
-                />
-              </>
-            )}
+          {/* Country markers */}
+          {Object.entries(locations).map(
+            ([key, location]) => {
 
-            <circle
-              r={7}
-              fill="#29B7DD"
-              opacity={0.3}
-            />
+              const isIndia = key === "india";
 
-            <circle
-              r={3.5}
-              fill="#59E1F4"
-              stroke="#FFFFFF"
-              strokeWidth={1}
-            />
+              return (
+                <Marker
+                  key={key}
+                  coordinates={location.coordinates}
+                >
 
-            <text
-              x={location.labelX}
-              y={location.labelY}
-              textAnchor={location.anchor}
-              className="map-country-label"
-            >
-              {location.name}
-            </text>
-          </Marker>
-        ))}
-      </ComposableMap>
+                  {/* India base pulse */}
+                  {isIndia && (
+                    <>
+                      <circle
+                        r={19}
+                        fill="#D4AF37"
+                        opacity={0.12}
+                      />
 
-      <div className="map-caption">
-        <Icon name="globe" size={22} />
-        <span>
-          India-based expertise. International delivery.
-        </span>
+                      <circle
+                        r={12}
+                        fill="#D4AF37"
+                        opacity={0.20}
+                      />
+                    </>
+                  )}
+
+                  {/* Outer marker */}
+                  <circle
+                    r={7}
+                    fill={
+                      isIndia
+                        ? "#D4AF37"
+                        : "#52D3C8"
+                    }
+                    opacity={0.28}
+                  />
+
+                  {/* Main marker */}
+                  <circle
+                    r={3.5}
+                    fill={
+                      isIndia
+                        ? "#D4AF37"
+                        : "#52D3C8"
+                    }
+                    stroke="#FFFFFF"
+                    strokeWidth={1.1}
+                  />
+
+                  {/* Country label */}
+                  <text
+                    x={location.labelX}
+                    y={location.labelY}
+                    textAnchor={location.anchor}
+                    className={
+                      isIndia
+                        ? "map-country-label map-label-india"
+                        : "map-country-label"
+                    }
+                  >
+                    {location.name}
+                  </text>
+
+                </Marker>
+              );
+            }
+          )}
+
+        </ComposableMap>
       </div>
+
+      {/* Footer */}
+      <div className="map-footer">
+
+        <div className="map-footer-caption">
+          <Icon name="globe" size={19} />
+
+          <span>
+            India-based expertise.
+            International delivery.
+          </span>
+        </div>
+
+        <div className="map-legend">
+
+          <span className="legend-item">
+            <i className="legend-dot legend-gold" />
+            Base
+          </span>
+
+          <span className="legend-item">
+            <i className="legend-dot legend-teal" />
+            Delivery
+          </span>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }
-
 
 function Experience() {
   return (
@@ -375,7 +525,7 @@ function Experience() {
       <div className="container experience-grid">
         <div className="experience-copy">
           <p className="overline">INTERNATIONAL DELIVERY EXPERIENCE</p>
-          <h2>Global Collaboration.<br /><span>Specialized Engineering.</span></h2>
+          <h1>Global Collaboration.<br /><span>Specialized Engineering.</span></h1>
           <p>Our experience includes delivering technology solutions and engineering services for organizations in the United States and Australia.</p>
           <p>We combine technical expertise, close collaboration, and flexible engagement options to support projects, product teams, and ongoing application needs.</p>
           <a className="text-link dark-link" href="#about">More About Orchlay <Icon name="arrowUp" size={18} /></a>
@@ -429,9 +579,9 @@ function Contact() {
           <p>Have a Microsoft technology challenge to solve? Let's discuss how Orchlay can help you design, build, modernize, and support the right solution.</p>
         </div>
         <div className="contact-cards">
-          <div className="contact-info-card"><span><Icon name="pin" size={28} /></span><h3>Address</h3><p>India</p></div>
-          <div className="contact-info-card"><span><Icon name="mail" size={28} /></span><h3>Email</h3><p>name@domain.com</p></div>
-          <div className="contact-info-card"><span><Icon name="phone" size={28} strokeWidth={1.8}/></span><h3>Call Us</h3><p>+91 1234567890</p></div>
+          <div className="contact-info-card"><span><Icon name="pin" size={28} /></span><h3>Address</h3><p>708 Veronica, Vasant Oasis, Makwana Road, Marol Andheri East Mumbai - 400059</p></div>
+          <div className="contact-info-card"><span><Icon name="mail" size={28} /></span><h3>Email</h3><p>info@orchlay.com</p></div>
+          <div className="contact-info-card"><span><Icon name="phone" size={28} strokeWidth={1.8}/></span><h3>Call Us</h3><p>+91 2265023396</p></div>
         </div>
         <ContactForm />
       </div>
@@ -444,9 +594,23 @@ function Footer() {
     <footer className="site-footer">
       <div className="container footer-inner">
         <Brand compact />
-        <p>Microsoft technology services, thoughtfully engineered.</p>
-        <div className="footer-right"><span>© {new Date().getFullYear()} Orchlay Solutions Pvt Ltd</span><a href="#home">Back to top ↑</a></div>
+        <div className='footer-middle'>
+        <p>Microsoft technology services,</p> 
+        <p>thoughtfully engineered.</p>
+        </div>
+        <div className="footer-right">
+          <span>© {new Date().getFullYear()} Orchlay Solutions Pvt Ltd</span>
+          <span>Developed By  <a href='https://blmindia.com/'>Big Leaf Media</a> </span>
+         
+        </div>
       </div>
+       <a
+        href="#home"
+        className="footer-back-to-top"
+        aria-label="Back to top"
+      >
+        ↑
+      </a>
     </footer>
   )
 }
@@ -458,11 +622,15 @@ export default function App() {
     <main>
       <Hero />
       <Services />
+
+      {/* <ServiceSlider/> */}
       <Acterys />
       <Experience />
+      <Team />
       <About />
       <Contact />
     </main>
     <Footer />
+   
   </>
 }

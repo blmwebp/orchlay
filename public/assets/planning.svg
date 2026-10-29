@@ -1,257 +1,443 @@
 
-<svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 760 490"
-     role="img"
-     aria-label="Connected planning and analytics dashboard">
-
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="58 53 644 384"
+  role="img"
+  aria-label="Connected planning and analytics dashboard"
+>
   <defs>
-    <!-- Corporate navy background -->
-    <linearGradient id="bg"
-                    x1="0" y1="0"
-                    x2="760" y2="490"
-                    gradientUnits="userSpaceOnUse">
-      <stop stop-color="#24527A"/>
-      <stop offset=".55" stop-color="#17365D"/>
-      <stop offset="1" stop-color="#102844"/>
-    </linearGradient>
-
-    <!-- Teal chart gradient -->
-    <linearGradient id="tealGradient"
-                    x1="0" y1="0"
-                    x2="0" y2="1">
-      <stop stop-color="#52D3C8"/>
+    <!-- Teal gradient -->
+    <linearGradient
+      id="tealGradient"
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="1"
+    >
+      <stop offset="0" stop-color="#52D3C8"/>
       <stop offset="1" stop-color="#008C83"/>
     </linearGradient>
 
-    <!-- Dashboard shadow -->
-    <filter id="sh">
+    <!-- Gold gradient -->
+    <linearGradient
+      id="goldGradient"
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="1"
+    >
+      <stop offset="0" stop-color="#F1D77A"/>
+      <stop offset="1" stop-color="#D4AF37"/>
+    </linearGradient>
+
+    <!-- Subtle dashboard shadow -->
+    <filter
+      id="cardShadow"
+      x="-5%"
+      y="-5%"
+      width="110%"
+      height="115%"
+    >
       <feDropShadow
         dx="0"
-        dy="12"
-        stdDeviation="14"
-        flood-color="#071C30"
-        flood-opacity=".30"/>
+        dy="3"
+        stdDeviation="4"
+        flood-color="#102844"
+        flood-opacity=".10"
+      />
     </filter>
   </defs>
 
-  <!-- Background -->
-  <rect width="760" height="490" fill="url(#bg)"/>
+  <!-- ===================================
+       MAIN DASHBOARD CONTAINER
+  =================================== -->
 
-  <!-- Background grid -->
-  <g opacity=".12" stroke="#A6DDD8">
-    <circle cx="652" cy="50" r="125"/>
-    <circle cx="95" cy="445" r="158"/>
+  <rect
+    x="58"
+    y="53"
+    width="644"
+    height="384"
+    rx="12"
+    fill="#F4F7FA"
+  />
 
-    <path d="
-      M0 95h760
-      M0 190h760
-      M0 285h760
-      M0 380h760
-      M160 0v490
-      M320 0v490
-      M480 0v490
-      M640 0v490
-    "/>
-  </g>
+  <!-- ===================================
+       DASHBOARD HEADER
+  =================================== -->
 
-  <!-- Main dashboard container -->
-  <rect x="58" y="53"
-        width="644" height="384"
-        rx="12"
-        fill="#F4F7FA"
-        filter="url(#sh)"/>
+  <path
+    d="M70 53h620q12 0 12 12v38H58V65q0-12 12-12Z"
+    fill="#102844"
+  />
 
-  <!-- Dashboard header -->
-  <path d="M70 53h620q12 0 12 12v38H58V65q0-12 12-12Z"
-        fill="#102844"/>
-
-  <!-- Window controls -->
+  <!-- Window indicators -->
   <circle cx="81" cy="78" r="5" fill="#D4AF37"/>
   <circle cx="101" cy="78" r="5" fill="#78B6AC"/>
   <circle cx="121" cy="78" r="5" fill="#008C83"/>
 
-  <text x="153" y="84"
-        font-family="Inter, Arial, sans-serif"
-        font-weight="700"
-        font-size="17"
-        fill="#FFFFFF">
+  <!-- Dashboard title -->
+  <text
+    x="153"
+    y="84"
+    font-family="Inter, Arial, sans-serif"
+    font-weight="700"
+    font-size="17"
+    fill="#FFFFFF"
+  >
     Connected Planning Dashboard
   </text>
 
-  <!-- Planning overview card -->
-  <rect x="80" y="127"
-        width="184" height="97"
-        rx="8"
-        fill="#FFFFFF"
-        stroke="#DDE5EC"/>
+  <!-- ===================================
+       CARD 1 — PLANNING OVERVIEW
+  =================================== -->
 
-  <text x="96" y="150"
-        font-family="Inter, Arial, sans-serif"
-        font-size="13"
-        fill="#637286">
+  <rect
+    x="80"
+    y="127"
+    width="184"
+    height="97"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#DDE5EC"
+    filter="url(#cardShadow)"
+  />
+
+  <text
+    x="96"
+    y="150"
+    font-family="Inter, Arial, sans-serif"
+    font-size="13"
+    fill="#637286"
+  >
     Planning overview
   </text>
 
-  <path d="M98 190h136"
-        stroke="#DDE5EC"
-        stroke-width="4"
-        stroke-linecap="round"/>
+  <!-- Progress indicator -->
+  <path
+    d="M98 168h65"
+    stroke="#008C83"
+    stroke-width="10"
+    stroke-linecap="round"
+  />
 
-  <path d="M98 207h103"
-        stroke="#DDE5EC"
-        stroke-width="4"
-        stroke-linecap="round"/>
+  <!-- Supporting metrics -->
+  <path
+    d="M98 190h136"
+    stroke="#DDE5EC"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
 
-  <path d="M98 168h65"
-        stroke="#008C83"
-        stroke-width="10"
-        stroke-linecap="round"/>
+  <path
+    d="M98 207h103"
+    stroke="#DDE5EC"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
 
-  <!-- Budget scenarios card -->
-  <rect x="279" y="127"
-        width="186" height="97"
-        rx="8"
-        fill="#FFFFFF"
-        stroke="#DDE5EC"/>
+  <!-- ===================================
+       CARD 2 — BUDGET SCENARIOS
+  =================================== -->
 
-  <text x="295" y="150"
-        font-family="Inter, Arial, sans-serif"
-        font-size="13"
-        fill="#637286">
+  <rect
+    x="279"
+    y="127"
+    width="186"
+    height="97"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#DDE5EC"
+    filter="url(#cardShadow)"
+  />
+
+  <text
+    x="295"
+    y="150"
+    font-family="Inter, Arial, sans-serif"
+    font-size="13"
+    fill="#637286"
+  >
     Budget scenarios
   </text>
 
+  <!-- Chart grid -->
   <g stroke="#E3EAF0">
-    <path d="M300 197h142M300 176h142"/>
+    <path d="M300 197h142"/>
+    <path d="M300 176h142"/>
   </g>
 
-  <path d="m299 195 34-19 33 8 28-23 38 6"
-        stroke="#008C83"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        fill="none"/>
+  <!-- Budget trend -->
+  <path
+    d="m299 195 34-19 33 8 28-23 38 6"
+    stroke="#008C83"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
 
-  <!-- Gold data indicators -->
-  <circle cx="333" cy="176" r="4" fill="#D4AF37"/>
-  <circle cx="394" cy="161" r="4" fill="#D4AF37"/>
+  <!-- Gold highlight points -->
+  <circle
+    cx="333"
+    cy="176"
+    r="4"
+    fill="#D4AF37"
+  />
 
-  <!-- Forecast mix card -->
-  <rect x="480" y="127"
-        width="199" height="97"
-        rx="8"
-        fill="#FFFFFF"
-        stroke="#DDE5EC"/>
+  <circle
+    cx="394"
+    cy="161"
+    r="4"
+    fill="#D4AF37"
+  />
 
-  <text x="496" y="150"
-        font-family="Inter, Arial, sans-serif"
-        font-size="13"
-        fill="#637286">
+  <!-- ===================================
+       CARD 3 — FORECAST MIX
+  =================================== -->
+
+  <rect
+    x="480"
+    y="127"
+    width="199"
+    height="97"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#DDE5EC"
+    filter="url(#cardShadow)"
+  />
+
+  <text
+    x="496"
+    y="150"
+    font-family="Inter, Arial, sans-serif"
+    font-size="13"
+    fill="#637286"
+  >
     Forecast mix
   </text>
 
-  <!-- Forecast donut -->
-  <circle cx="540" cy="187"
-          r="26"
-          stroke="#DCE6EB"
-          stroke-width="12"
-          fill="none"/>
+  <!-- Donut chart background -->
+  <circle
+    cx="540"
+    cy="187"
+    r="26"
+    stroke="#DCE6EB"
+    stroke-width="12"
+    fill="none"
+  />
 
-  <path d="M540 161a26 26 0 0 1 21 42"
-        stroke="#008C83"
-        stroke-width="12"
-        stroke-linecap="round"
-        fill="none"/>
+  <!-- Teal donut segment -->
+  <path
+    d="M540 161a26 26 0 0 1 21 42"
+    stroke="#008C83"
+    stroke-width="12"
+    stroke-linecap="round"
+    fill="none"
+  />
 
-  <path d="M581 171h76M581 188h53M581 205h62"
-        stroke="#DCE5EC"
-        stroke-width="5"
-        stroke-linecap="round"/>
+  <!-- Forecast labels -->
+  <path
+    d="M581 171h76M581 188h53M581 205h62"
+    stroke="#DCE5EC"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
 
-  <!-- Performance chart card -->
-  <rect x="80" y="242"
-        width="380" height="169"
-        rx="8"
-        fill="#FFFFFF"
-        stroke="#DDE5EC"/>
+  <!-- ===================================
+       CARD 4 — PERFORMANCE BY PERIOD
+  =================================== -->
 
-  <text x="97" y="264"
-        font-family="Inter, Arial, sans-serif"
-        font-size="13"
-        fill="#637286">
+  <rect
+    x="80"
+    y="242"
+    width="380"
+    height="169"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#DDE5EC"
+    filter="url(#cardShadow)"
+  />
+
+  <text
+    x="97"
+    y="264"
+    font-family="Inter, Arial, sans-serif"
+    font-size="13"
+    fill="#637286"
+  >
     Performance by period
   </text>
 
-  <!-- Chart grid -->
+  <!-- Chart guidelines -->
   <g stroke="#E7EDF2">
-    <path d="M102 378h334M102 342h334M102 306h334"/>
+    <path d="M102 378h334"/>
+    <path d="M102 342h334"/>
+    <path d="M102 306h334"/>
   </g>
 
-  <!-- Navy / teal bars -->
+  <!-- Navy bars -->
   <g fill="#245B83">
-    <rect x="123" y="335" width="24" height="43" rx="3"/>
-    <rect x="189" y="319" width="24" height="59" rx="3"/>
-    <rect x="255" y="298" width="24" height="80" rx="3"/>
-    <rect x="321" y="284" width="24" height="94" rx="3"/>
-    <rect x="387" y="309" width="24" height="69" rx="3"/>
+    <rect
+      x="123" y="335"
+      width="24" height="43"
+      rx="3"
+    />
+
+    <rect
+      x="189" y="319"
+      width="24" height="59"
+      rx="3"
+    />
+
+    <rect
+      x="255" y="298"
+      width="24" height="80"
+      rx="3"
+    />
+
+    <rect
+      x="321" y="284"
+      width="24" height="94"
+      rx="3"
+    />
+
+    <rect
+      x="387" y="309"
+      width="24" height="69"
+      rx="3"
+    />
   </g>
 
   <!-- Teal comparison bars -->
-  <g fill="#008C83">
-    <rect x="149" y="349" width="17" height="29" rx="3"/>
-    <rect x="215" y="332" width="17" height="46" rx="3"/>
-    <rect x="281" y="320" width="17" height="58" rx="3"/>
-    <rect x="347" y="300" width="17" height="78" rx="3"/>
-    <rect x="413" y="315" width="17" height="63" rx="3"/>
+  <g fill="url(#tealGradient)">
+    <rect
+      x="149" y="349"
+      width="17" height="29"
+      rx="3"
+    />
+
+    <rect
+      x="215" y="332"
+      width="17" height="46"
+      rx="3"
+    />
+
+    <rect
+      x="281" y="320"
+      width="17" height="58"
+      rx="3"
+    />
+
+    <rect
+      x="347" y="300"
+      width="17" height="78"
+      rx="3"
+    />
+
+    <rect
+      x="413" y="315"
+      width="17" height="63"
+      rx="3"
+    />
   </g>
 
-  <!-- Gold emphasis -->
-  <rect x="321" y="284"
-        width="24" height="94"
-        rx="3"
-        fill="#D4AF37"/>
+  <!-- Highlighted performance bar -->
+  <rect
+    x="321"
+    y="284"
+    width="24"
+    height="94"
+    rx="3"
+    fill="url(#goldGradient)"
+  />
 
-  <!-- Planning stages card -->
-  <rect x="476" y="242"
-        width="203" height="169"
-        rx="8"
-        fill="#FFFFFF"
-        stroke="#DDE5EC"/>
+  <!-- ===================================
+       CARD 5 — PLANNING STAGES
+  =================================== -->
 
-  <text x="492" y="264"
-        font-family="Inter, Arial, sans-serif"
-        font-size="13"
-        fill="#637286">
+  <rect
+    x="476"
+    y="242"
+    width="203"
+    height="169"
+    rx="8"
+    fill="#FFFFFF"
+    stroke="#DDE5EC"
+    filter="url(#cardShadow)"
+  />
+
+  <text
+    x="492"
+    y="264"
+    font-family="Inter, Arial, sans-serif"
+    font-size="13"
+    fill="#637286"
+  >
     Planning stages
   </text>
 
-  <!-- Progress bar tracks -->
+  <!-- Progress bar backgrounds -->
   <g fill="#DDE6EC">
-    <rect x="492" y="285" width="171" height="13" rx="6"/>
-    <rect x="492" y="317" width="171" height="13" rx="6"/>
-    <rect x="492" y="349" width="171" height="13" rx="6"/>
-    <rect x="492" y="381" width="171" height="13" rx="6"/>
+    <rect
+      x="492" y="285"
+      width="171" height="13"
+      rx="6"
+    />
+
+    <rect
+      x="492" y="317"
+      width="171" height="13"
+      rx="6"
+    />
+
+    <rect
+      x="492" y="349"
+      width="171" height="13"
+      rx="6"
+    />
+
+    <rect
+      x="492" y="381"
+      width="171" height="13"
+      rx="6"
+    />
   </g>
 
-  <!-- Progress values -->
-  <rect x="492" y="285"
-        width="140" height="13"
-        rx="6"
-        fill="#008C83"/>
+  <!-- Completed stages -->
+  <rect
+    x="492"
+    y="285"
+    width="140"
+    height="13"
+    rx="6"
+    fill="#008C83"
+  />
 
-  <rect x="492" y="317"
-        width="115" height="13"
-        rx="6"
-        fill="#D4AF37"/>
+  <rect
+    x="492"
+    y="317"
+    width="115"
+    height="13"
+    rx="6"
+    fill="#D4AF37"
+  />
 
-  <rect x="492" y="349"
-        width="156" height="13"
-        rx="6"
-        fill="#008C83"/>
+  <rect
+    x="492"
+    y="349"
+    width="156"
+    height="13"
+    rx="6"
+    fill="#008C83"
+  />
 
-  <rect x="492" y="381"
-        width="91" height="13"
-        rx="6"
-        fill="#245B83"/>
+  <rect
+    x="492"
+    y="381"
+    width="91"
+    height="13"
+    rx="6"
+    fill="#245B83"
+  />
 
 </svg>

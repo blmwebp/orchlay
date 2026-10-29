@@ -3,7 +3,7 @@ export const capabilities = [
     id: 'data-analytics',
     number: '01',
     icon: 'database',
-    short: 'Data, Analytics & AI',
+    short: 'Data & BI, Analytics & AI',
     title: 'Data Platform, Analytics & AI',
     summary: 'Build modern data platforms, enterprise reporting, and analytics with Microsoft Fabric, Power BI, and Azure.',
     description: 'Transform enterprise data into trusted insights and a foundation for AI-driven solutions.',
@@ -22,8 +22,8 @@ export const capabilities = [
     id: 'modern-workplace',
     number: '02',
     icon: 'windows',
-    short: 'Workplace & Automation',
-    title: 'Modern Workplace & Automation',
+    short: 'Modern Work & Automation',
+    title: 'Modern Work',
     summary: 'Modernize SharePoint, Microsoft 365, Teams, and automate day-to-day workflows with Power Platform.',
     description: 'Build connected digital workplaces that simplify collaboration and improve business productivity.',
     features: [
@@ -128,3 +128,33 @@ export const enquiryInterests = [
   'Solution architecture and advisory',
   'Other enquiry',
 ]
+
+
+export const serviceTechnologies = {
+  "data-analytics": [
+    { name: "Power BI", logo: "/partners/PowerBI1.webp" },
+    { name: "Microsoft Fabric", logo: "/partners/fabric1.png" },
+    { name: "Azure", logo: "/partners/Azure11.webp" },
+  ],
+
+  "modern-workplace": [
+    { name: "SharePoint", logo: "/partners/sharepoint1.webp" },
+    { name: "Power Apps", logo: "/partners/powerapps1.png" },
+    { name: "Power Automate", logo: "/partners/Power_Automate1.svg" },
+  ],
+
+  planning: [
+    { name: "Acterys", logo: "/assets/acterys.svg" },
+    { name: "Power BI", logo: "/partners/PowerBI1.webp" },
+  ],
+
+  engineering: [
+    { name: "Azure", logo: "/partners/azure.png" },
+    { name: "React", logo: "/partners/react.png" },
+  ],
+
+  "managed-services": [
+    { name: "Microsoft Azure", logo: "/partners/Azure11.webp" },
+    { name: "Microsoft 365", logo: "/partners/microsoft-365.png" },
+  ],
+};

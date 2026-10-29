@@ -13,7 +13,7 @@ const initial = {
 
 const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT?.trim()
 const contactEmail = import.meta.env.VITE_CONTACT_EMAIL?.trim()
-
+const API_URL =import.meta.env.VITE_API_URL || "http://localhost:5000/api/contact";
 function formatEnquiry(values) {
   return [
     'Orchlay Solutions enquiry',
@@ -40,37 +40,61 @@ export default function ContactForm() {
     if (status.type !== 'idle') setStatus({ type: 'idle', text: '' })
   }
 
-  async function submit(event) {
-    event.preventDefault()
-    if (busy) return
-    setBusy(true)
-    setStatus({ type: 'idle', text: '' })
-    try {
-      if (endpoint) {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
-        })
-        if (!response.ok) throw new Error('Unable to send the enquiry. Please try again.')
-        setValues(initial)
-        setStatus({ type: 'success', text: 'Your enquiry has been submitted successfully.' })
-      } else if (contactEmail) {
-        const subject = encodeURIComponent(`Orchlay enquiry: ${values.interest}`)
-        const body = encodeURIComponent(formatEnquiry(values))
-        window.location.href = `mailto:${encodeURIComponent(contactEmail)}?subject=${subject}&body=${body}`
-        setStatus({ type: 'info', text: 'Your email app should open with the enquiry ready to send. Please review and send it there.' })
-      } else {
-        const formatted = formatEnquiry(values)
-        await navigator.clipboard.writeText(formatted)
-        setStatus({ type: 'info', text: 'Enquiry copied. A contact email or submission endpoint can be configured before launching this site.' })
-      }
-    } catch (error) {
-      setStatus({ type: 'error', text: error.message || 'Unable to complete this action.' })
-    } finally {
-      setBusy(false)
+  
+async function submit(event) {
+  event.preventDefault();
+
+  if (busy) return;
+
+  setBusy(true);
+
+  setStatus({
+    type: "idle",
+    text: "",
+  });
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(values),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.message ||
+        "Unable to submit your enquiry."
+      );
     }
+
+    /* Clear form after successful submission */
+    setValues({ ...initial });
+
+    setStatus({
+      type: "success",
+      text:
+        "Thank you! Your enquiry has been submitted successfully. Our team will get back to you soon.",
+    });
+
+  } catch (error) {
+    setStatus({
+      type: "error",
+      text:
+        error.message ||
+        "Something went wrong. Please try again.",
+    });
+
+  } finally {
+    setBusy(false);
   }
+}
+
 
   return (
     <form className="contact-form" onSubmit={submit}>
@@ -108,12 +132,18 @@ export default function ContactForm() {
         </label>
       </div>
       <div className="form-bottom">
-        <button type="submit" className="button button-purple" disabled={busy}>
-          {busy ? 'Please wait...' : endpoint ? 'Submit Enquiry' : contactEmail ? 'Prepare Email' : 'Submit Demo'}
-          <Icon name="arrow" size={18} />
+        <button
+          type="submit"
+          className="button button-purple"
+          disabled={busy}
+        >
+          {busy ? "Submitting..." : "Submit Enquiry"}
+
+          {!busy && <Icon name="arrow" size={18} />}
         </button>
         <p className="form-privacy">
-          {endpoint ? 'Your details are sent to the configured enquiry endpoint.' : contactEmail ? 'Your email app will handle sending the message.' : 'Preview mode: no details are sent or stored by this page.'}
+          Your information will be shared with the Orchlay Solutions
+          team solely to respond to your enquiry.
         </p>
       </div>
       {status.type !== 'idle' && <p className={`form-status ${status.type}`} role="status">{status.text}</p>}
