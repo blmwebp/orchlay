@@ -117,20 +117,20 @@ function Services() {
           </div>
           <div className="capability-tiles">
             {capabilities.slice(0, 4).map(item => (
-              <a key={item.id} className={`capability-tile tile-${item.color}`} href={`#detail-${item.id}`} onClick={() => setExpanded(item.id)}>
+              <a key={item.id} className={`capability-tile tile-${item.color}`}  onClick={() => setExpanded(item.id)}>
                 <span className="tile-number">{item.number}</span>
                 <Icon name={item.icon} size={43} strokeWidth={1.3} />
                 <span className="tile-title">{item.short}</span>
-                <span className="tile-arrow"><Icon name="arrowUp" size={18} /></span>
+                {/* <span className="tile-arrow"><Icon name="arrowUp" size={18} /></span> */}
               </a>
             ))}
           </div>
         </div>
-        <a className="managed-strip" href="#detail-managed-services" onClick={() => setExpanded('managed-services')}>
+        <a className="managed-strip"  onClick={() => setExpanded('managed-services')}>
           <span className="managed-icon"><Icon name="support" size={27} /></span>
           <span className="managed-label"><small>05 / AN EXTENSION OF YOUR TEAM</small><strong>Managed Services & Advisory</strong></span>
           <span className="managed-description">Specialist support, flexible engagement, and continuous improvement</span>
-          <Icon name="arrowUp" size={20} />
+          {/* <Icon name="arrowUp" size={20} /> */}
         </a>
 
             <ServiceTabs/>

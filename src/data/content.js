@@ -4,7 +4,7 @@ export const capabilities = [
     number: '01',
     icon: 'database',
     short: 'Data & BI, Analytics & AI',
-    title: 'Data Platform, Analytics & AI',
+    title: 'Data & BI, Analytics & AI',
     summary: 'Build modern data platforms, enterprise reporting, and analytics with Microsoft Fabric, Power BI, and Azure.',
     description: 'Transform enterprise data into trusted insights and a foundation for AI-driven solutions.',
     features: [
@@ -23,7 +23,7 @@ export const capabilities = [
     number: '02',
     icon: 'windows',
     short: 'Modern Work & Automation',
-    title: 'Modern Work',
+    title: 'Modern Work & Automation',
     summary: 'Modernize SharePoint, Microsoft 365, Teams, and automate day-to-day workflows with Power Platform.',
     description: 'Build connected digital workplaces that simplify collaboration and improve business productivity.',
     features: [
@@ -42,7 +42,7 @@ export const capabilities = [
     number: '03',
     icon: 'sparkle',
     short: 'Planning & Intelligence',
-    title: 'Planning & Decision Intelligence',
+    title: 'Planning & Intelligence',
     summary: 'Connect budgeting, forecasting, planning, and Power BI reporting through Acterys solutions.',
     description: 'Connect financial and operational planning with analytics to support informed business decisions.',
     features: [
@@ -57,11 +57,11 @@ export const capabilities = [
     color: 'royal',
   },
   {
-    id: 'application-engineering',
+    id: 'engineering',
     number: '04',
     icon: 'code',
     short: 'Application Engineering',
-    title: 'Application Engineering & Modernization',
+    title: 'Application Engineering',
     summary: 'Design, build, integrate, and modernize enterprise software using .NET, Azure, and SPFx.',
     description: 'Build and evolve business applications aligned with changing business needs.',
     features: [
@@ -80,7 +80,7 @@ export const capabilities = [
     number: '05',
     icon: 'support',
     short: 'Managed Services',
-    title: 'Managed Services & Advisory',
+    title: 'Managed Services',
     summary: 'Extend your team with Microsoft specialists for application support, enhancements, architecture, and delivery.',
     description: 'Extend your team with specialized Microsoft expertise for ongoing application support and continuous improvement.',
     features: [
@@ -134,7 +134,6 @@ export const serviceTechnologies = {
   "data-analytics": [
     { name: "Power BI", logo: "/partners/PowerBI1.webp" },
     { name: "Microsoft Fabric", logo: "/partners/fabric1.png" },
-    { name: "Azure", logo: "/partners/Azure11.webp" },
   ],
 
   "modern-workplace": [
@@ -149,12 +148,13 @@ export const serviceTechnologies = {
   ],
 
   engineering: [
-    { name: "Azure", logo: "/partners/azure.png" },
-    { name: "React", logo: "/partners/react.png" },
+    { name: "Azure", logo: "/partners/Azure11.webp" },
+    { name: "Microsoft 365", logo: "/partners/microsoft-365.png" },
+    { name: "Power BI", logo: "/partners/PowerBI1.webp" },
   ],
 
   "managed-services": [
-    { name: "Microsoft Azure", logo: "/partners/Azure11.webp" },
+        { name: "SharePoint", logo: "/partners/sharepoint1.webp" },
     { name: "Microsoft 365", logo: "/partners/microsoft-365.png" },
   ],
 };
