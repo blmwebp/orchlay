@@ -1,73 +1,171 @@
 import React, { useState, useEffect } from 'react'
 import ContactForm from './components/ContactForm.jsx'
 import Icon from './components/Icon.jsx'
-import { capabilities, acterysServices } from './data/content.js'
+import {
+  acterysServices,
+  primaryServices,
+  professionalSubservices,
+  professionalTechnologies,
+  managedITServices,
+  infrastructureServices,
+  cloudServices,
+} from './data/content.js'
 import Team from "./components/Team";
-import { ComposableMap,Geographies,Geography,Graticule,Marker,Line} from "react-simple-maps";
-import ServiceTabs from "./components/ServiceTabs";
-import ServiceSlider from "./components/ServiceSlider";
+import { ComposableMap, Geographies, Geography, Graticule, Marker, Line } from "react-simple-maps";
 import worldData from "world-atlas/countries-110m.json";
 
-const navigation = [
-  ['Our Services', '#services'],
-  ['About Us', '#about'],
-]
-
 const process = [
-  ['01', 'Understand', 'Align technology decisions with business goals and the needs of the people using the solution.'],
-  ['02', 'Architect', 'Design secure, scalable, and maintainable solutions built for real business requirements.'],
-  ['03', 'Engineer', 'Build and integrate using the appropriate Microsoft technologies and development practices.'],
-  ['04', 'Evolve', 'Support, optimize, and enhance applications as business requirements change.'],
+  ['01', 'Understand', 'Clarify business goals, user needs, challenges and constraints.'],
+  ['02', 'Design', 'Shape the right solution, architecture and delivery approach.'],
+  ['03', 'Deliver', 'Build, implement, validate and transition with accountability.'],
+  ['04', 'Evolve', 'Support, optimise and adapt as needs and technologies change.'],
 ]
 
-const reasons = [
-  'Deep Microsoft technology expertise',
-  'Business-focused solution architecture',
-  'End-to-end development and integration',
-  'Flexible engagement and support models',
-  'Long-term application evolution and support',
+const values = [
+  ['Focused Expertise', 'Specialist skills and practical experience in the technologies and disciplines that matter to your business.'],
+  ['Agility by Nature', 'A responsive, adaptable approach that keeps collaboration close and decisions moving.'],
+  ['AI-ready Mindset', 'Continuously evolving our capabilities and applying AI and emerging technologies where they create real value.'],
+  ['Direct Accountability', 'Clear communication, ownership and meaningful involvement from experienced professionals.'],
 ]
 
-function Brand({ compact = false }) {
+function Brand({ compact = false, light = false }) {
+  const logoSrc =
+    compact || light
+      ? '/assets/logo_white.png'
+      : '/assets/logo_color.png'
+
   return (
     <a
       href="#home"
-      className={`brand ${compact ? "brand-compact" : ""}`}
+      className={`brand${compact ? ' brand-compact' : ''}`}
       aria-label="Orchlay Solutions - Back to Home"
     >
-       <img
-        src={
-          compact
-            ? "/assets/logo_white.png"
-            : "/assets/logo_color.png"
-        }
-        alt="Orchlay Solutions Logo"
+      <img
+        src={logoSrc}
+        alt="Orchlay Solutions"
         className="brand-logo"
       />
     </a>
-  );
+  )
 }
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [professionalOpen, setProfessionalOpen] = useState(false)
+
+  function closeNavigation() {
+    setMenuOpen(false)
+    setProfessionalOpen(false)
+  }
+
+  function toggleNavigation() {
+    setProfessionalOpen(false)
+    setMenuOpen(open => !open)
+  }
+
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        closeNavigation()
+      }
+    }
+
+    // Restore the regular header when a phone rotates to desktop width.
+    const desktopQuery = window.matchMedia('(min-width: 901px)')
+
+    function handleDesktopChange(event) {
+      if (event.matches) {
+        closeNavigation()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    desktopQuery.addEventListener('change', handleDesktopChange)
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      desktopQuery.removeEventListener('change', handleDesktopChange)
+    }
+  }, [])
+
   return (
-    <header className="site-header">
+    <header className={`site-header${menuOpen ? ' mobile-menu-open' : ''}`}>
       <div className="container header-inner">
-        <Brand />
+        <Brand light={menuOpen} />
+
         <button
           className="menu-button"
           type="button"
           aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
           aria-expanded={menuOpen}
           aria-controls="primary-nav"
-          onClick={() => setMenuOpen(value => !value)}
+          onClick={toggleNavigation}
         >
           <Icon name={menuOpen ? 'close' : 'menu'} />
         </button>
-        <nav id="primary-nav" className={`primary-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
-          {navigation.map(([label, href]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
-          <a className="nav-external" href="#acterys" onClick={() => setMenuOpen(false)}>Acterys <Icon name="arrowUp" size={14} /></a>
-          <a href="#contact" className="contact-btn">Get in Touch</a>
+
+        <nav
+          id="primary-nav"
+          className={`primary-nav${menuOpen ? ' is-open' : ''}`}
+          aria-label="Main navigation"
+        >
+          <div className="nav-scroll-area">
+            <div
+              className={`nav-dropdown${professionalOpen ? ' is-open' : ''}`}
+            >
+              <button
+                type="button"
+                className="nav-dropdown-trigger"
+                aria-expanded={professionalOpen}
+                aria-controls="professional-services-menu"
+                onClick={() => setProfessionalOpen(open => !open)}
+              >
+                Professional Services
+                <Icon name="chevron" size={14} />
+              </button>
+
+              <div
+                id="professional-services-menu"
+                className="nav-dropdown-menu"
+              >
+                <a href="#professional" onClick={closeNavigation}>
+                  Professional Services overview
+                </a>
+                <a href="#data-bi" onClick={closeNavigation}>
+                  Data &amp; BI
+                </a>
+                <a href="#modern-workplace" onClick={closeNavigation}>
+                  Modern Workplace
+                </a>
+                <a href="#app-engineering" onClick={closeNavigation}>
+                  Application Engineering
+                </a>
+                <a href="#modernisation" onClick={closeNavigation}>
+                  Modernisation
+                </a>
+                <a href="#emerging-tech" onClick={closeNavigation}>
+                  AI &amp; Emerging Technologies
+                </a>
+              </div>
+            </div>
+
+            <a href="#acterys" onClick={closeNavigation}>Acterys</a>
+            <a href="#managed" onClick={closeNavigation}>Managed IT</a>
+            <a href="#infrastructure" onClick={closeNavigation}>
+              IT Infrastructure
+            </a>
+            <a href="#cloud" onClick={closeNavigation}>Cloud Services</a>
+            <a href="#about" onClick={closeNavigation}>About</a>
+            <a href="#team" onClick={closeNavigation}>Our Team</a>
+          </div>
+
+          <a
+            href="#contact"
+            className="contact-btn"
+            onClick={closeNavigation}
+          >
+            Contact us
+          </a>
         </nav>
       </div>
     </header>
@@ -79,15 +177,14 @@ function Hero() {
     <section id="home" className="hero purple-section">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <p className="overline light-overline"><span className="overline-bar" /> MICROSOFT TECHNOLOGY SPECIALISTS</p>
-          <h1>Microsoft Technology.<br /><span>Engineered for Business.</span></h1>
-          <p className="hero-lede">We help organizations modernize data platforms, build intelligent business applications, automate processes, and unlock more value from Microsoft technology.</p>
-          <p className="hero-support">From solution architecture and engineering to ongoing application support, we deliver solutions tailored to your business needs.</p>
+          <p className="overline light-overline"><span className="overline-bar" /> ORCHLAY SOLUTIONS</p>
+          <h1>Technology.<br /><span>Expertise. Transformation.</span></h1>
+          <p className="hero-lede">We help organisations build, manage and evolve their technology environments — combining specialist people, professional services, infrastructure and cloud capabilities to solve real business challenges.</p>
           <div className="hero-actions">
-            <a className="button button-cyan" href="#contact">Discuss Your Project <Icon name="arrow" size={18} /></a>
-            <a className="text-link light-link" href="#services">Explore Our Services <Icon name="arrowUp" size={18} /></a>
+            <a className="button button-cyan" href="#contact">Talk to our team <Icon name="arrow" size={18} /></a>
+            <a className="text-link light-link" href="#services">Explore our services <Icon name="arrowUp" size={18} /></a>
           </div>
-          <div className="hero-footnote"><span className="footnote-line" /> CONSULTING · ENGINEERING · LONG-TERM SUPPORT</div>
+          <div className="hero-footnote"><span className="footnote-line" /> PROFESSIONAL EXPERTISE · RELIABLE DELIVERY · BUSINESS-FOCUSED OUTCOMES</div>
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="hero-glow" />
@@ -96,70 +193,450 @@ function Hero() {
           <span className="floating-badge badge-bottom">BUILD / MODERNIZE</span>
         </div>
       </div>
+      <div className="container portfolio-section">
+        <div className="portfolio-heading">
+          <span>Our service portfolio</span>
+        </div>
+        <div className="portfolio-grid">
+          <div><strong>Professional Services</strong><span>Consulting · Engineering · Modernisation</span></div>
+          <div><strong>Acterys</strong><span>Planning · Budgeting · Analytics</span></div>
+          <div><strong>Managed IT Services</strong><span>Technical staffing · Augmentation</span></div>
+          <div><strong>IT Infrastructure</strong><span>Networking · Enterprise compute</span></div>
+          <div><strong>Cloud Services</strong><span>Assessment · Migration · Management</span></div>
+          <div><strong>Technology Advisory</strong><span>Architecture · Roadmaps · Optimisation</span></div>
+        </div>
+        <p className="portfolio-footer">The right expertise. The right technology. A delivery model built around your business.</p>
+      </div>
     </section>
   )
 }
 
 function Services() {
-  const [expanded, setExpanded] = useState('data-analytics')
   return (
     <section id="services" className="services-section section-pad">
       <div className="container">
         <div className="section-heading centered">
-          <p className="overline">WHAT WE DO BEST</p>
-          <h2>Our Core Capabilities</h2>
-          <p>Practical, business-led technology solutions across the Microsoft ecosystem.</p>
+          <p className="overline">OUR SERVICE AREAS</p>
+          <h2>One Service Provider. Five core service areas.</h2>
+          <p>From specialist consulting to ongoing operations, Orchlay supports the technology that keeps your organisation moving.</p>
         </div>
-        <div className="capability-showcase">
-          <div className="service-illustration">
-            <img src="/assets/services.svg" alt="Illustration of connected data, cloud applications, and workplace collaboration" />
-            <div className="illustration-caption"><span>ORCHLAY SOLUTIONS</span><strong>Technology expertise that moves business forward.</strong></div>
-          </div>
-          <div className="capability-tiles">
-            {capabilities.slice(0, 4).map(item => (
-              <a key={item.id} className={`capability-tile tile-${item.color}`}  onClick={() => setExpanded(item.id)}>
-                <span className="tile-number">{item.number}</span>
-                <Icon name={item.icon} size={43} strokeWidth={1.3} />
-                <span className="tile-title">{item.short}</span>
-                {/* <span className="tile-arrow"><Icon name="arrowUp" size={18} /></span> */}
-              </a>
-            ))}
+        <div className="primary-services-grid">
+          {primaryServices.map((service, index) => (
+            <a
+              key={service.id}
+              href={`#${service.id}`}
+              className={`primary-service-card primary-service-${index + 1}`}
+            >
+              <span className="primary-service-number">{service.number}</span>
+              <h3>{service.heading}</h3>
+              <p>{service.description}</p>
+              <strong className="primary-service-name">{service.short}</strong>
+            </a>
+          ))}
+          <div className="primary-service-card delivery-card">
+            <span className="primary-service-number">+</span>
+            <h3>Designed around your needs</h3>
+            <p>Flexible engagement models — project delivery, specialist augmentation, advisory and ongoing service support.</p>
+            <strong className="primary-service-name">Delivery Approach</strong>
           </div>
         </div>
-        <a className="managed-strip"  onClick={() => setExpanded('managed-services')}>
-          <span className="managed-icon"><Icon name="support" size={27} /></span>
-          <span className="managed-label"><small>05 / AN EXTENSION OF YOUR TEAM</small><strong>Managed Services & Advisory</strong></span>
-          <span className="managed-description">Specialist support, flexible engagement, and continuous improvement</span>
-          {/* <Icon name="arrowUp" size={20} /> */}
-        </a>
+      </div>
+    </section>
+  )
+}
 
-            <ServiceTabs/>
-        {/* <div className="service-details" aria-label="Detailed service offerings">
-          <div className="details-intro">
-            <p className="overline">EXPLORE THE EXPERTISE</p>
-            <h3>From strategy to support, we cover the full journey.</h3>
-            <p>Choose a service to explore how our teams turn requirements into maintainable Microsoft solutions.</p>
+function ProfessionalServices() {
+  const [hoveredService, setHoveredService] = useState(null)
+  const [selectedService, setSelectedService] = useState(null)
+  const [isTouch, setIsTouch] = useState(false)
+  const activeService = hoveredService ?? selectedService
+
+
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    }
+    checkTouch()
+    window.addEventListener('touchstart', checkTouch, { once: true })
+    return () => window.removeEventListener('touchstart', checkTouch)
+  }, [])
+
+  const handleCardClick = (serviceId) => {
+    setHoveredService(null)
+    setSelectedService((current) => current === serviceId ? null : serviceId)
+  }
+
+  const handleCardEnter = (event, serviceId) => {
+    if (
+      event.pointerType === 'mouse' &&
+      window.matchMedia('(min-width: 769px)').matches
+    ) {
+      setHoveredService(serviceId)
+    }
+  }
+
+  const handleCardLeave = () => {
+    setHoveredService(null)
+  }
+
+  const handleAreaLeave = () => {
+    if (!selectedService) {
+      setHoveredService(null)
+    }
+  }
+
+  const closePanel = () => {
+    setHoveredService(null)
+    setSelectedService(null)
+  }
+
+  const technologies = professionalTechnologies[activeService] ?? []
+
+  return (
+    <section id="professional-detail" className="professional-section section-pad">
+      <div className="container">
+        <div className="detail-layout" id="professional" onMouseLeave={handleAreaLeave}>
+          <div className="detail-intro">
+            <p className="overline">01 / PROFESSIONAL SERVICES</p>
+            <h2>Deep expertise across platforms and technologies.</h2>
+            <p>Our professional services bring together consulting, solution design and engineering to help organisations solve complex problems and get more from their technology investments.</p>
+            <ul className="detail-points">
+              <li><Icon name="check" size={16} />Business-led discovery, architecture and solution design</li>
+              <li><Icon name="check" size={16} />Implementation, integration, testing and deployment</li>
+              <li><Icon name="check" size={16} />Application lifecycle, optimisation and support</li>
+              <li><Icon name="check" size={16} />Microsoft expertise complemented by modern and emerging technologies</li>
+            </ul>
           </div>
-          <div className="service-accordion">
-            {capabilities.map(item => {
-              const isOpen = item.id === expanded
+          <div className="professional-subservices"  onPointerLeave={() => setHoveredService(null)}>
+            {professionalSubservices.map((service, index) => {
+              const isSelected = selectedService === service.id
+              const isOpen = activeService === service.id
+              const cardRow = Math.floor(index / 2) * 2 + 1
               return (
-                <div className={`accordion-item ${isOpen ? 'is-expanded' : ''}`} id={`detail-${item.id}`} key={item.id}>
-                  <button type="button" onClick={() => setExpanded(isOpen ? '' : item.id)} aria-expanded={isOpen} aria-controls={`content-${item.id}`}>
-                    <span className="accordion-number">{item.number}</span>
-                    <span>{item.title}</span>
-                    <Icon name="chevron" size={20} className="accordion-chevron" />
+                <React.Fragment key={service.id}>
+                  <button
+                    id={service.id}
+                    className={`professional-card${isOpen ? ' is-active' : ''}${isSelected ? ' is-selected' : ''}`}
+                    style={{
+                      '--card-row': cardRow,
+                      '--card-column': (index % 2) + 1,
+                    }}
+                    onClick={() => handleCardClick(service.id)}
+                    onPointerEnter={(event) => handleCardEnter(event, service.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={isOpen ? `tech-panel-${service.id}` : undefined}
+                    type="button"
+                  >
+                    <div className="professional-card-inner">
+                      <div className="professional-card-header">
+                        <h3>{service.title}</h3>
+                        <span className="professional-card-arrow" aria-hidden="true">
+                          <Icon name="arrowDown" size={16} />
+                        </span>
+                      </div>
+                      <p>{service.description}</p>
+                      <span className="professional-card-explore">Explore technologies</span>
+                    </div>
                   </button>
-                  {isOpen && <div id={`content-${item.id}`} className="accordion-content">
-                    <p>{item.description}</p>
-                    <ul>{item.features.map(feature => <li key={feature}><Icon name="check" size={15} />{feature}</li>)}</ul>
-                    <div className="outcome"><strong>Business outcomes</strong><span>{item.outcome}</span></div>
-                  </div>}
-                </div>
+
+                  {isOpen && (
+                    <div
+                      id={`tech-panel-${service.id}`}
+                      className="tech-panel-inline"
+                      style={{ '--panel-row': cardRow + 1 }}
+                      role="region"
+                      aria-label={`Technologies for ${service.title}`}
+                    >
+                      <div className="tech-panel-inner">
+                        <div className="tech-panel-header">
+                          <p className="tech-panel-kicker">TECHNOLOGIES WE WORK WITH</p>
+                          {/* <h2>{service.title}</h2> */}
+                          {/* <button
+                            className="tech-panel-close"
+                            onClick={() => setSelectedService(null)}
+                            aria-label="Close technology panel"
+                            type="button"
+                          >
+                            <Icon name="close" size={20} />
+                          </button> */}
+                        </div>
+                        <div className="tech-panel-logos">
+                          {technologies.map((tech) => (
+                            <div key={tech.name} className="tech-logo-item">
+                              <img
+                                src={tech.logo}
+                                alt={tech.name}
+                                className="tech-logo"
+                                loading="lazy"
+                              />
+                              <span className="tech-logo-name">{tech.name}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
               )
             })}
           </div>
-        </div> */}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ManagedIT() {
+  const serviceIcons = {
+    'Technical Staffing': (
+      <>
+        <circle cx="9" cy="8" r="3" />
+        <path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 4.6V20" />
+      </>
+    ),
+    'Resource Augmentation': (
+      <>
+        <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+        <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+      </>
+    ),
+    'Managed Support': (
+      <>
+        <path d="M4 14v-3a8 8 0 0 1 16 0v6a4 4 0 0 1-4 4h-3" />
+        <rect x="3" y="11" width="4" height="7" rx="2" />
+        <rect x="17" y="11" width="4" height="7" rx="2" />
+      </>
+    ),
+    'Delivery Continuity': (
+      <>
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path d="M7 3v4m10-4v4M3 10h18m-13 5 3 3 5-5" />
+      </>
+    ),
+  }
+
+  return (
+    <section id="managed-detail" className="managed-section section-pad">
+      <div className="container">
+        <div id="managed" className="managed-it-band">
+          <div className="managed-it-band__intro">
+            <div className="managed-it-band__heading">
+              <p className="overline">03 / MANAGED IT SERVICES</p>
+              <h2>
+                <span>Extend your team.</span>{' '}
+                <span>Strengthen delivery.</span>
+              </h2>
+            </div>
+
+            <div className="managed-it-band__summary">
+              <p>
+                Access specialist technology skills and flexible capacity through
+                technical staffing and resource augmentation. We help you scale
+                delivery teams, fill capability gaps and support ongoing
+                technology operations.
+              </p>
+
+              <a className="button button-cyan" href="#contact">
+                Discuss your resourcing needs
+                <Icon name="arrow" size={18} />
+              </a>
+            </div>
+          </div>
+
+          <div className="managed-it-band__services">
+            {managedITServices.map((service) => (
+              <article
+                key={service.title}
+                className="managed-it-band__service"
+              >
+                {serviceIcons[service.title] && (
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    {serviceIcons[service.title]}
+                  </svg>
+                )}
+
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+function Infrastructure() {
+  return (
+    <section id="infrastructure-detail" className="infrastructure-section section-pad">
+      <div className="container">
+        <div className="infra-diagram" id="infrastructure">
+          <div className="detail-intro">
+            <p className="overline">04 / IT INFRASTRUCTURE SERVICES</p>
+            <h2>Build dependable technology foundations.</h2>
+            <p>We support the technology foundations that enable your business — from enterprise networking and datacenter infrastructure through to enterprise compute environments.</p>
+            <ul className="detail-points">
+              <li><Icon name="check" size={16} />Infrastructure assessment and solution planning</li>
+              <li><Icon name="check" size={16} />Network and compute implementation</li>
+              <li><Icon name="check" size={16} />Infrastructure upgrades and lifecycle support</li>
+              <li><Icon name="check" size={16} />Operational reliability and performance focus</li>
+            </ul>
+            <a className="button button-cyan" href="#contact">Discuss infrastructure requirements <Icon name="arrow" size={18} /></a>
+          </div>
+          <div className="infra-diagram__panel">
+            <img
+              className="infra-diagram__tower"
+              src="/images/infrastructure-tower.png"
+              alt=""
+            />
+
+            <div className="infra-diagram__labels">
+              {infrastructureServices.map((service) => (
+                <article className="infra-diagram__label" key={service.title}>
+                  <svg
+                    className="infra-diagram__connector"
+                    viewBox="0 0 48 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M2 21 13 6h32"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <circle cx="2" cy="21" r="2" fill="currentColor" />
+                    <circle cx="45" cy="6" r="2" fill="currentColor" />
+                  </svg>
+
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CloudServices() {
+  const [hoveredTitle, setHoveredTitle] = useState(null)
+  const [pinnedTitle, setPinnedTitle] = useState(null)
+  const activeTitle = hoveredTitle ?? pinnedTitle
+  // Decorative icons follow the lifecycle sequence shown in Design 1.
+ const iconPaths = {
+  'Cloud Assessment':
+    'M9 5H6a1 1 0 0 0-1 1v14h14V6a1 1 0 0 0-1-1h-3 M9 3h6v4H9z M8 13l2 2 5-5',
+
+  'Cloud Migration':
+    'M7 18H6a4 4 0 0 1-.6-8 6.5 6.5 0 0 1 12.4-1.5A4.8 4.8 0 0 1 19 18h-2 M12 21V12m-3 3 3-3 3 3',
+
+  'Cloud Optimisation':
+    'M3 21h18 M4 13h3v8H4z M10 9h3v12h-3z M16 4h3v17h-3z',
+
+  'Cloud Management':
+    'M3 6h4m4 0h10 M3 12h10m4 0h4 M3 18h6m4 0h8 M11 6a2 2 0 1 1-4 0 2 2 0 1 1 4 0 M17 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0 M13 18a2 2 0 1 1-4 0 2 2 0 1 1 4 0',
+
+  // Connected nodes for hybrid infrastructure
+  'Hybrid & Integration':
+    'M9 3h6v5H9z M12 8v5 M5 16v-3h14v3 M2 16h6v5H2z M16 16h6v5h-6z',
+
+  // Compass for advisory and strategy
+  'Cloud Advisory':
+    'M21 12a9 9 0 1 1-18 0 9 9 0 1 1 18 0 M16 8l-2.5 5.5L8 16l2.5-5.5z',
+}
+
+function toggleService(title) {
+  setHoveredTitle(null)
+  setPinnedTitle((current) => current === title ? null : title)
+}
+
+  return (
+    <section id="cloud-detail" className="cloud-section section-pad">
+      <div className="container">
+        <div className="cloud-lifecycle" id="cloud">
+          <div className="cloud-lifecycle__header">
+            <div>
+              <p className="overline">05 / CLOUD SERVICES</p>
+              <h2>Assess. Migrate. Optimise. Manage.</h2>
+            </div>
+
+            <p className="cloud-lifecycle__intro">
+              Make informed cloud decisions and get lasting value from your
+              cloud environment with services across the cloud lifecycle.
+            </p>
+          </div>
+
+          <ol
+            className="cloud-lifecycle__rail"
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') {
+                setHoveredTitle(null)
+                setPinnedTitle(null)
+              }
+            }}
+          >
+            {cloudServices.map((service, index) => {
+              const isOpen = activeTitle === service.title
+              const descriptionId = `cloud-service-description-${index}`
+
+              return (
+                <li
+                  key={service.title}
+                  className="cloud-lifecycle__stage"
+                  onPointerLeave={() => setHoveredTitle(null)}
+                >
+                  <button
+                    type="button"
+                    className="cloud-lifecycle__node"
+                    aria-label={`${service.title} details`}
+                    aria-expanded={isOpen}
+                    aria-controls={descriptionId}
+                    onPointerEnter={(event) => {
+                      if (event.pointerType === 'mouse') {
+                        setHoveredTitle(service.title)
+                      }
+                    }}
+                    onClick={() => toggleService(service.title)}
+                  >
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d={iconPaths[service.title]} />
+                    </svg>
+                  </button>
+
+                  <div className="cloud-lifecycle__copy">
+                    <h3>{service.title}</h3>
+                    <p id={descriptionId} hidden={!isOpen}>
+                      {service.description}
+                    </p>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
       </div>
     </section>
   )
@@ -170,6 +647,7 @@ function Acterys() {
   const selected = acterysServices[active]
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % acterysServices.length);
     }, 3000);
@@ -184,29 +662,32 @@ function Acterys() {
           <div className="acterys-visual">
 
             <p className="overline light-overline">
-              PLANNING & ANALYTICS
+              02 / ACTERYS
             </p>
 
             <h2>
-              What we do<span className="cyan-period">.</span>
+              Planning that connects with your data<span className="cyan-period">.</span>
             </h2>
-             {/* Existing planning dashboard */}
+            {/* Existing planning dashboard */}
             <div className="dashboard-frame">
               <img
                 src="/assets/planning.svg"
                 alt="Connected planning dashboard"
               />
             </div>
+
+
+
             {/* Partnership badge */}
-             <div key={active} className="acterys-highlight" aria-live="off" >
+            <div key={active} className="acterys-highlight" aria-live="off" >
               <span className="highlight-counter">0{active + 1} / 0{acterysServices.length}</span>
-               <div key={active} className="acterys-slide-content">
+              <div key={active} className="acterys-slide-content">
                 <h4>{selected.title}</h4>
                 <p>{selected.body}</p>
               </div>
             </div>
 
-            
+
 
             {/* Existing slider controls */}
             <div
@@ -227,21 +708,23 @@ function Acterys() {
 
           </div>
           <div className="acterys-copy">
-            <span className="partner-kicker">ACTERYS PLANNING & ANALYTICS</span>
-            <h3>Connected Planning.<br /><span>Smarter Decisions.</span></h3>
-            <p>We help organizations implement Acterys solutions that bring budgeting, forecasting, financial planning, and operational analysis into an integrated Power BI experience.</p>
-            <p>Our work covers solution design, implementation, data integration, reporting, customization, and ongoing support.</p>
-           
+            <span className="partner-kicker">PLANNING & DECISION INTELLIGENCE</span>
+            <h3>Connect planning, performance<br /><span>and analytics.</span></h3>
+            <p>Orchlay supports Acterys-related planning and analytics initiatives, helping organisations design and implement connected planning workflows using Acterys and Microsoft technologies.</p>
+            <ul className="acterys-capabilities">
+              <li><Icon name="check" size={16} />Budgeting, forecasting and financial planning</li>
+              <li><Icon name="check" size={16} />Power BI-based planning and write-back scenarios</li>
+              <li><Icon name="check" size={16} />Data integration, modelling and reporting alignment</li>
+              <li><Icon name="check" size={16} />Implementation, enablement and ongoing optimisation</li>
+            </ul>
+            {/* Technology Partner */}
             <div className="acterys-partnership">
-
               <div className="partnership-heading">
-                <span className="partnership-icon">
-                  <Icon name="check" size={15} />
-                </span>
-
-                <span>TECHNOLOGY PARTNER</span>
+                <div className="partnership-icon">
+                  <Icon name="check" size={14} />
+                </div>
+                <span>SERVICE PROVIDER</span>
               </div>
-
               <div className="partnership-logo-wrap">
                 <img
                   src="/assets/acterys.svg"
@@ -249,29 +732,28 @@ function Acterys() {
                   className="partnership-logo"
                 />
               </div>
-
               <p className="partnership-description">
-                As an Acterys technology partner, Orchlay Solutions helps businesses streamline budgeting, forecasting, and financial planning through integrated Power BI and Acterys solutions, enabling smarter, data-driven decisions.
+                Certified provider for connected planning, budgeting and analytics solutions powered by Acterys and Microsoft technologies.
               </p>
             </div>
             <div className="acterys-actions">
 
               <a
-                href="https://acterys.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contact"
                 className="button acterys-primary-btn"
               >
-                Explore Acterys Solutions
-                <Icon name="arrowUp" size={18} />
+                Discuss an Acterys project
+                <Icon name="arrow" size={18} />
               </a>
 
               <a
-                href="#contact"
+                href="https://acterys.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="button acterys-secondary-btn"
               >
-                How We Can Help
-                <Icon name="arrow" size={18} />
+                Explore Acterys
+                <Icon name="arrowUp" size={18} />
               </a>
 
             </div>
@@ -519,52 +1001,125 @@ function ExperienceMap() {
   );
 }
 
-function Experience() {
-  return (
-    <section id="experience" className="experience-section section-pad">
-      <div className="container experience-grid">
-        <div className="experience-copy">
-          <p className="overline">INTERNATIONAL DELIVERY EXPERIENCE</p>
-          <h1>Global Collaboration.<br /><span>Specialized Engineering.</span></h1>
-          <p>Our experience includes delivering technology solutions and engineering services for organizations in the United States and Australia.</p>
-          <p>We combine technical expertise, close collaboration, and flexible engagement options to support projects, product teams, and ongoing application needs.</p>
-          <a className="text-link dark-link" href="#about">More About Orchlay <Icon name="arrowUp" size={18} /></a>
-        </div>
-        <ExperienceMap />
-      </div>
-    </section>
-  )
-}
+// function Experience() {
+//   return (
+//     <section
+//       id="experience"
+//       className="orchlay-about__experience"
+//       aria-labelledby="experience-heading"
+//     >
+//       <div className="container">
+//         <p className="overline">INTERNATIONAL DELIVERY EXPERIENCE</p>
+//         <h3 id="experience-heading">
+//           Global Collaboration.<br />
+//           Specialized Engineering.
+//         </h3>
+
+//         <div className="orchlay-about__map">
+//           <ExperienceMap />
+//         </div>
+
+//         <div className="orchlay-about__experience-copy">
+//           <p>
+//             Our experience includes delivering technology solutions and
+//             engineering services for organizations in the United States
+//             and Australia.
+//           </p>
+//           <p>
+//             We combine technical expertise, close collaboration, and flexible
+//             engagement options to support projects, product teams, and ongoing
+//             application needs.
+//           </p>
+//         </div>
+
+//         <a className="orchlay-about__link" href="#about">
+//           More About Orchlay <Icon name="arrowUp" size={18} />
+//         </a>
+//       </div>
+//     </section>
+//   )
+// }
 
 function About() {
   return (
-    <section id="about" className="about-section purple-section section-pad">
-      <div className="container">
-        <div className="about-top">
-          <div className='about-left'>
-            <p className="overline light-overline">ABOUT ORCHLAY</p>
-            <h2>Microsoft Expertise.<br />Practical Engineering.<br /><span>Lasting Value.</span></h2>
+    <section id="about" className="about-profile" aria-labelledby="about-title">
+      <header className="about-profile__hero">
+        <div className="container about-profile__hero-inner">
+          <div className="about-profile__brief">
+            <p className="about-profile__eyebrow">ABOUT ORCHLAY</p>
+
+            <h2 id="about-title">
+              Focused expertise.<br />
+              Agile by nature.<br />
+              Ready for what's next.
+            </h2>
+
+            <p>
+              Technology is evolving at an extraordinary pace. AI, cloud, data
+              and digital platforms are changing how organisations operate. We
+              believe businesses need partners who combine deep specialist
+              knowledge with the agility to adapt and deliver.
+            </p>
+
+            <p>
+              Orchlay brings together experienced professionals and niche
+              expertise across professional services, Acterys, managed IT,
+              infrastructure and cloud. We focus on close collaboration,
+              practical execution and outcomes that matter to our clients.
+            </p>
           </div>
-          <div className="about-intro">
-            <p>Orchlay Solutions Pvt Ltd is a technology services company focused on Microsoft technologies, enterprise applications, data platforms, analytics, and business process automation.</p>
-            <p>We translate requirements into practical, maintainable solutions from architecture and implementation through modernization and ongoing support.</p>
+
+          <div id="experience" className="about-profile__map">
+            <ExperienceMap />
           </div>
         </div>
-        <div className="process-section">
-          <div className="process-title"><span>OUR APPROACH</span><h3>Built around the way your business works.</h3></div>
-          <div className="process-grid">
-            {process.map(([number, title, body]) => <div className="process-card" key={number}>
-              <span className="process-number">{number}</span>
-              <h4>{title}</h4>
-              <p>{body}</p>
-            </div>)}
+      </header>
+
+      <div className="container about-profile__body">
+        <section aria-labelledby="about-values-title">
+          <p className="about-profile__eyebrow">WHY ORCHLAY</p>
+          <h3 id="about-values-title">Our value proposition</h3>
+          <p className="about-profile__summary">
+            The strengths we bring to every client engagement.
+          </p>
+
+          <div className="about-profile__values">
+            {values.map(([title, body]) => (
+              <article className="about-profile__value" key={title}>
+                <h4>{title}</h4>
+                <p>{body}</p>
+              </article>
+            ))}
           </div>
-        </div>
-        <div className="why-panel">
-          <div><p className="overline light-overline">WHY ORCHLAY</p><h3>Thoughtful solutions. Reliable engineering.</h3></div>
-          <ul>{reasons.map(reason => <li key={reason}><Icon name="check" size={18} />{reason}</li>)}</ul>
-        </div>
-      </div>
+        </section>
+</div>
+        <section className="work-sequence" aria-labelledby="about-process-title">
+          <div className="container">
+            <p className="work-sequence__eyebrow">HOW WE WORK</p>
+
+            <h3 id="about-process-title">
+              From understanding to continuous improvement.
+            </h3>
+
+            <p className="work-sequence__intro">
+              A clear, collaborative delivery approach that takes each engagement
+              from the initial business need through to ongoing improvement.
+            </p>
+
+            <ol className="work-sequence__list">
+              {process.map(([number, title, body]) => (
+                <li key={number}>
+                  <span className="work-sequence__number" aria-hidden="true">
+                    {String(number).padStart(2, '0')}
+                  </span>
+                  <h4>{title}</h4>
+                  <p>{body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      
     </section>
   )
 }
@@ -575,15 +1130,32 @@ function Contact() {
       <div className="container">
         <div className="section-heading centered contact-heading">
           <p className="overline light-overline">LET'S TALK</p>
-          <h2>Get in Touch<span className="cyan-period">.</span></h2>
-          <p>Have a Microsoft technology challenge to solve? Let's discuss how Orchlay can help you design, build, modernize, and support the right solution.</p>
+          <h2>Tell us what you need to achieve<span className="cyan-period">.</span></h2>
+          <p>Share a few details about your requirement and our team can follow up to discuss the right service and engagement approach.</p>
         </div>
         <div className="contact-cards">
           <div className="contact-info-card"><span><Icon name="pin" size={28} /></span><h3>Address</h3><p>708 Veronica, Vasant Oasis, Makwana Road, Marol Andheri East Mumbai - 400059</p></div>
           <div className="contact-info-card"><span><Icon name="mail" size={28} /></span><h3>Email</h3><p>info@orchlay.com</p></div>
-          <div className="contact-info-card"><span><Icon name="phone" size={28} strokeWidth={1.8}/></span><h3>Call Us</h3><p>+91 2265023396</p></div>
+          <div className="contact-info-card"><span><Icon name="phone" size={28} strokeWidth={1.8} /></span><h3>Call Us</h3><p>+91 2265023396</p></div>
         </div>
         <ContactForm />
+      </div>
+    </section>
+  )
+}
+
+function ClosingCTA() {
+  return (
+    <section className="closing-cta section-pad">
+      <div className="container closing-cta-inner">
+        <div>
+          <p className="overline">START A CONVERSATION</p>
+          <h2>Let's solve your next technology challenge.</h2>
+        </div>
+        <div>
+          <p>Whether you need specialist skills, a new solution, infrastructure support or a clearer cloud roadmap, start a conversation with Orchlay.</p>
+          <a className="button button-cyan" href="#contact">Talk to Orchlay <Icon name="arrow" size={18} /></a>
+        </div>
       </div>
     </section>
   )
@@ -592,45 +1164,66 @@ function Contact() {
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="container footer-inner">
-        <Brand compact />
-        <div className='footer-middle'>
-        <p>Microsoft technology services,</p> 
-        <p>thoughtfully engineered.</p>
+      <div className="container">
+        <div className="footer-main">
+          <div className="footer-brand">
+            <Brand compact />
+
+            <p className="footer-description">
+              Technology. Expertise. Transformation. Professional services,
+              Acterys, managed IT, infrastructure and cloud services.
+            </p>
+          </div>
+
+          <nav className="footer-links" aria-label="Footer navigation">
+            <a href="#professional">Professional Services</a>
+            <a href="#acterys">Acterys</a>
+            <a href="#managed">Managed IT</a>
+            <a href="#infrastructure">IT Infrastructure</a>
+            <a href="#cloud">Cloud Services</a>
+          </nav>
         </div>
-        <div className="footer-right">
-          <span>© {new Date().getFullYear()} Orchlay Solutions Pvt Ltd</span>
-          <span>Developed By  <a href='https://blmindia.com/'>Big Leaf Media</a> </span>
-         
+
+        <div className="footer-bottom">
+          <small className="footer-copyright">
+            © {new Date().getFullYear()} Orchlay Solutions Pvt Ltd. All rights
+            reserved.
+          </small>
+
+          <small className="footer-credit">
+            Developed by <a href="https://blmindia.com/">Big Leaf Media</a>
+          </small>
+
+          <div className="footer-end">
+            <small>United States · Australia · India delivery experience</small>
+
+            <a href="#home" className="footer-back-to-top" aria-label="Back to top">
+              <span aria-hidden="true">↑</span>
+            </a>
+          </div>
         </div>
       </div>
-       <a
-        href="#home"
-        className="footer-back-to-top"
-        aria-label="Back to top"
-      >
-        ↑
-      </a>
     </footer>
   )
 }
-
 export default function App() {
   return <>
-    <a className="skip-link" href="#services">Skip to content</a>
-    <Header/>
-    <main>
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main id="main-content">
       <Hero />
       <Services />
-
-      {/* <ServiceSlider/> */}
+      <ProfessionalServices />
       <Acterys />
-      <Experience />
-      <Team />
+      <ManagedIT />
+      <Infrastructure />
+      <CloudServices />
       <About />
+      <Team />
+      <ClosingCTA />
       <Contact />
     </main>
     <Footer />
-   
+
   </>
 }

@@ -1,7 +1,17 @@
+
 import React from "react";
 import { teamMembers } from "../data/team";
 
 function Team() {
+  const getInitials = (name = "") =>
+    name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase();
+
   return (
     <section
       id="team"
@@ -10,75 +20,64 @@ function Team() {
     >
       <div className="container">
 
-        {/* Section heading */}
         <div className="team-header">
-
           <p className="team-overline">
             <span className="team-overline-line" />
             THE PEOPLE BEHIND ORCHLAY
           </p>
 
           <h2 id="team-title">
-            Meet Our <span>Team.</span>
+            Experience that brings technology and business <span>together.</span>
           </h2>
 
           <p className="team-intro">
-            Meet the people bringing together technology,
-            engineering expertise, and practical thinking
-            to deliver meaningful business solutions.
+            Our leadership and consulting team combines business perspective with specialist technology expertise.
           </p>
-
         </div>
 
-        {/* Team cards */}
         <div className="team-grid">
-
           {teamMembers.map((member) => (
+            <article className="team-card" key={member.id}>
 
-            <article
-              className="team-card"
-              key={member.id}
-            >
-
-              {/* Team photograph */}
-              <div className="team-image-wrapper">
-
-                <img
-                  src={member.image}
-                  alt={`Portrait of ${member.name}`}
-                  className="team-image"
-                  loading="lazy"
-                />
-
-                <div className="team-image-accent" />
-
+              <div className="team-avatar">
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span>{getInitials(member.name)}</span>
+                )}
               </div>
 
-              {/* Team details */}
               <div className="team-card-content">
+                <p className="team-role">
+                  {member.role}
+                </p>
 
-                <div className="team-card-heading">
-
-                  <h3>{member.name}</h3>
-
-                  <span className="team-role">
-                    {member.role}
-                  </span>
-
-                </div>
-
-                <div className="team-card-divider" />
+                <h3>{member.name}</h3>
 
                 <p className="team-description">
                   {member.desc}
                 </p>
 
+                {member.expertise?.length > 0 && (
+                  <div
+                    className="team-tags"
+                    aria-label={`${member.name} expertise`}
+                  >
+                    {member.expertise.map((tag) => (
+                      <span className="team-tag" key={tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
 
             </article>
-
           ))}
-
         </div>
 
       </div>

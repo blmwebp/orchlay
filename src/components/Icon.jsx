@@ -3,6 +3,7 @@ import React from 'react'
 const paths = {
   arrow: <><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>,
   arrowUp: <><path d="M7 17 17 7"/><path d="M8 7h9v9"/></>,
+  arrowDown: <><path d="M7 7 17 17"/><path d="M8 17h9V8"/></>,
   chevron: <path d="m6 9 6 6 6-6"/>,
   menu: <><path d="M4 7h16M4 12h16M4 17h16"/></>,
   close: <><path d="M5 5l14 14M19 5 5 19"/></>,

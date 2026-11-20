@@ -11,23 +11,7 @@ const initial = {
   message: '',
 }
 
-const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT?.trim()
-const contactEmail = import.meta.env.VITE_CONTACT_EMAIL?.trim()
-const API_URL =import.meta.env.VITE_API_URL || "http://localhost:5000/api/contact";
-function formatEnquiry(values) {
-  return [
-    'Orchlay Solutions enquiry',
-    '',
-    `Name: ${values.name}`,
-    `Business email: ${values.email}`,
-    `Company: ${values.company || 'Not supplied'}`,
-    `Country: ${values.country || 'Not supplied'}`,
-    `Area of interest: ${values.interest}`,
-    '',
-    'Message:',
-    values.message,
-  ].join('\n')
-}
+const API_URL = import.meta.env.VITE_API_URL?.trim() || '/api/contact'
 
 export default function ContactForm() {
   const [values, setValues] = useState(initial)
@@ -54,6 +38,15 @@ async function submit(event) {
   });
 
   try {
+    const normalizedValues = {
+      ...values,
+      name: values.name.trim(),
+      email: values.email.trim(),
+      company: values.company.trim(),
+      country: values.country.trim(),
+      message: values.message.trim(),
+    }
+
     const response = await fetch(API_URL, {
       method: "POST",
 
@@ -61,7 +54,7 @@ async function submit(event) {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify(values),
+      body: JSON.stringify(normalizedValues),
     });
 
     const result = await response.json();
@@ -100,27 +93,27 @@ async function submit(event) {
     <form className="contact-form" onSubmit={submit}>
       <div className="form-head">
         <span className="form-kicker">START A CONVERSATION</span>
-        <h3>Tell us about your project.</h3>
+        <h3>Tell us about your requirement.</h3>
       </div>
       <div className="form-grid">
         <label>
           <span>Name <em>*</em></span>
-          <input name="name" autoComplete="name" value={values.name} onChange={update} required placeholder="Your name" />
+          <input name="name" autoComplete="name" value={values.name} onChange={update} required maxLength={100} placeholder="Your name" />
         </label>
         <label>
           <span>Business email <em>*</em></span>
-          <input name="email" type="email" autoComplete="email" value={values.email} onChange={update} required placeholder="you@company.com" />
+          <input name="email" type="email" autoComplete="email" value={values.email} onChange={update} required maxLength={254} placeholder="you@company.com" />
         </label>
         <label>
           <span>Company</span>
-          <input name="company" autoComplete="organization" value={values.company} onChange={update} placeholder="Company name" />
+          <input name="company" autoComplete="organization" value={values.company} onChange={update} maxLength={150} placeholder="Company name" />
         </label>
         <label>
           <span>Country</span>
-          <input name="country" autoComplete="country-name" value={values.country} onChange={update} placeholder="Country" />
+          <input name="country" autoComplete="country-name" value={values.country} onChange={update} maxLength={100} placeholder="Country" />
         </label>
         <label className="full-field">
-          <span>Area of interest <em>*</em></span>
+          <span>Service of interest <em>*</em></span>
           <select name="interest" value={values.interest} onChange={update} required>
             <option value="">Select a service</option>
             {enquiryInterests.map(item => <option key={item} value={item}>{item}</option>)}
@@ -128,7 +121,7 @@ async function submit(event) {
         </label>
         <label className="full-field">
           <span>How can we help? <em>*</em></span>
-          <textarea name="message" rows="4" value={values.message} onChange={update} required placeholder="Tell us a little about what you're working on..." />
+          <textarea name="message" rows="4" value={values.message} onChange={update} required maxLength={5000} placeholder="Tell us a little about what you're working on..." />
         </label>
       </div>
       <div className="form-bottom">

@@ -96,37 +96,223 @@ export const capabilities = [
   },
 ]
 
+export const primaryServices = [
+  {
+    id: 'professional',
+    number: '01',
+    short: 'Professional Services',
+    heading: 'Consulting, engineering & transformation',
+    description:
+      'Specialist professional services across Microsoft platforms and the latest technologies — from strategy and architecture through development, modernisation and support.',
+  },
+  {
+    id: 'acterys',
+    number: '02',
+    short: 'Acterys',
+    heading: 'Planning & decision intelligence',
+    description:
+      'Acterys-enabled planning, budgeting, forecasting and analytics solutions that connect business planning with reporting and decision-making.',
+  },
+  {
+    id: 'managed',
+    number: '03',
+    short: 'Managed IT Services',
+    heading: 'People, capability & operational support',
+    description:
+      'Technical staffing and resource augmentation to extend your team with the skills and capacity required to deliver and operate technology.',
+  },
+  {
+    id: 'infrastructure',
+    number: '04',
+    short: 'IT Infrastructure Services',
+    heading: 'Connected, resilient IT foundations',
+    description:
+      'Enterprise networking, datacenter infrastructure and enterprise compute services designed to support secure and dependable operations.',
+  },
+  {
+    id: 'cloud',
+    number: '05',
+    short: 'Cloud Services',
+    heading: 'Make cloud work harder for you',
+    description:
+      'Cloud assessment, migration, optimisation and management to help improve performance, resilience and value from cloud investments.',
+  },
+]
+
+export const professionalSubservices = [
+  {
+    id: 'data-bi',
+    title: 'Data & BI',
+    description:
+      'Microsoft Fabric, Power BI, data engineering, analytics, reporting and data platform modernisation.',
+  },
+  {
+    id: 'modern-workplace',
+    title: 'Modern Workplace',
+    description:
+      'SharePoint, Microsoft 365, Power Apps, Power Automate, collaboration and workflow solutions.',
+  },
+  {
+    id: 'app-engineering',
+    title: 'Application Engineering',
+    description:
+      'Custom business applications, APIs, integrations, web engineering and application support.',
+  },
+  {
+    id: 'modernisation',
+    title: 'Modernisation',
+    description:
+      'Legacy application and BI modernisation, migration strategy, re-platforming and upgrades.',
+  },
+  {
+    id: 'emerging-tech',
+    title: 'AI & Emerging Technologies',
+    description:
+      'Practical exploration and implementation of AI-enabled and next-generation technology solutions.',
+  },
+  {
+    id: 'advisory',
+    title: 'Advisory & Architecture',
+    description:
+      'Technology roadmaps, solution architecture, technical assessment and delivery governance.',
+  },
+]
+
+export const professionalTechnologies = {
+  'data-bi': [
+    { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+    { name: 'Microsoft Fabric', logo: '/partners/fabric1.png' },
+    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+  ],
+  'modern-workplace': [
+    { name: 'Share Point', logo: '/partners/sharepoint1.webp' },
+    { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
+    { name: 'Power Apps', logo: '/partners/powerapps1.png' },
+    { name: 'Power Automate', logo: '/partners/Power_Automate1.svg' },
+  ],
+  'app-engineering': [
+    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
+    { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+  ],
+  'modernisation': [
+    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+  ],
+  'emerging-tech': [
+    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+  ],
+  'advisory': [
+    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
+  ],
+}
+
+export const managedITServices = [
+  {
+    title: 'Technical Staffing',
+    description:
+      'Skilled technical professionals aligned to role requirements and project needs.',
+  },
+  {
+    title: 'Resource Augmentation',
+    description:
+      'Extend internal teams with specialist skills and additional delivery capacity.',
+  },
+  {
+    title: 'Managed Support',
+    description:
+      'Ongoing support and maintenance for agreed applications and technology services.',
+  },
+  {
+    title: 'Delivery Continuity',
+    description:
+      'Flexible support to sustain projects, releases and business-as-usual operations.',
+  },
+]
+
+export const infrastructureServices = [
+  {
+    title: 'Enterprise Networking',
+    description:
+      'Network switching, routing, wireless, security and connectivity components.',
+  },
+  {
+    title: 'Datacenter Infrastructure',
+    description:
+      'Structured cabling, racks, fibre, patching and physical network infrastructure.',
+  },
+  {
+    title: 'Enterprise Compute',
+    description:
+      'Server, storage, virtualisation and enterprise compute environments.',
+  },
+  {
+    title: 'Infrastructure Support',
+    description:
+      'Assessment, implementation, maintenance and operational support.',
+  },
+]
+
+export const cloudServices = [
+  {
+    title: 'Cloud Assessment',
+    description:
+      'Review your current environment, workloads, readiness, risks and opportunities to define a practical cloud roadmap.',
+  },
+  {
+    title: 'Cloud Migration',
+    description:
+      'Plan and execute workload and application migrations with attention to dependencies, continuity and validation.',
+  },
+  {
+    title: 'Cloud Optimisation',
+    description:
+      'Improve architecture, performance, security posture and cost efficiency through ongoing review and tuning.',
+  },
+  {
+    title: 'Cloud Management',
+    description:
+      'Support cloud operations, governance, monitoring and continuous improvement across your environment.',
+  },
+  {
+    title: 'Hybrid & Integration',
+    description:
+      'Connect cloud services with on-premises infrastructure, applications, data and business processes.',
+  },
+  {
+    title: 'Cloud Advisory',
+    description:
+      'Shape cloud strategy, landing-zone decisions, technology selection and phased transformation plans.',
+  },
+]
+
 export const acterysServices = [
   {
-    title: 'Financial Planning & Budgeting',
+    title: 'Budgeting, Forecasting & Financial Planning',
     body: 'Connected budgeting and planning aligned with business structures and reporting needs.',
   },
   {
-    title: 'Forecasting & Scenario Planning',
-    body: 'Rolling forecasts, what-if analysis, and scenario comparison for forward-looking decisions.',
+    title: 'Power BI Planning & Write-Back',
+    body: 'Planning workflows that align with Microsoft reporting and supported write-back scenarios.',
   },
   {
-    title: 'Power BI Write-Back & Planning',
-    body: 'Planning workflows that allow users to enter and update data through supported write-back solutions.',
+    title: 'Data Integration & Reporting Alignment',
+    body: 'Connected data sources, planning models and reporting alignment for consistent decision-making.',
   },
   {
-    title: 'Planning Model & Data Integration',
-    body: 'Connected enterprise data sources for greater consistency, traceability, and reporting reliability.',
-  },
-  {
-    title: 'Implementation & Ongoing Support',
-    body: 'Solution design, configuration, customization, optimization, and continued technical support.',
+    title: 'Implementation, Enablement & Ongoing Optimisation',
+    body: 'Solution design, implementation, enablement and continued optimisation for connected planning workflows.',
   },
 ]
 
 export const enquiryInterests = [
-  'Microsoft Fabric and Power BI',
-  'SharePoint and Power Platform',
-  'Acterys planning and analytics',
-  'Custom application development',
-  'Managed services and staff augmentation',
-  'Solution architecture and advisory',
-  'Other enquiry',
+  'Professional Services',
+  'Acterys',
+  'Managed IT Services',
+  'IT Infrastructure Services',
+  'Cloud Services',
 ]
 
 
@@ -137,7 +323,7 @@ export const serviceTechnologies = {
   ],
 
   "modern-workplace": [
-    { name: "SharePoint", logo: "/partners/sharepoint1.webp" },
+    { name: "Share Point", logo: "/partners/sharepoint1.webp" },
     { name: "Power Apps", logo: "/partners/powerapps1.png" },
     { name: "Power Automate", logo: "/partners/Power_Automate1.svg" },
   ],
@@ -154,7 +340,7 @@ export const serviceTechnologies = {
   ],
 
   "managed-services": [
-        { name: "SharePoint", logo: "/partners/sharepoint1.webp" },
+        { name: "Share Point", logo: "/partners/sharepoint1.webp" },
     { name: "Microsoft 365", logo: "/partners/microsoft-365.png" },
   ],
 };

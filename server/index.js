@@ -10,7 +10,10 @@ dotenv.config();
 const app = express();
 
 const PORT = Number(process.env.PORT || 5000);
-const FRONTEND_URL =process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URLS = (process.env.FRONTEND_URL || "")
+  .split(",")
+  .map((url) => url.trim())
+  .filter(Boolean);
 
 /* ==========================================
    MIDDLEWARE
@@ -18,7 +21,13 @@ const FRONTEND_URL =process.env.FRONTEND_URL || "http://localhost:5173";
 
 app.use(
   cors({
-    origin: FRONTEND_URL || "https://blm-orchlay.vercel.app",
+    origin(origin, callback) {
+      if (!origin || FRONTEND_URLS.length === 0 || FRONTEND_URLS.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Origin is not allowed"));
+      }
+    },
     methods: ["POST", "GET"],
   })
 );
@@ -199,6 +208,14 @@ const isValidEmail = (email) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
   email.length <= 254;
 
+const allowedInterests = new Set([
+  "Professional Services",
+  "Acterys",
+  "Managed IT Services",
+  "IT Infrastructure Services",
+  "Cloud Services",
+]);
+
 /* ==========================================
    CONTACT FORM API
 ========================================== */
@@ -231,6 +248,7 @@ app.post(
         !enquiry.name ||
         !isValidEmail(enquiry.email) ||
         !enquiry.interest ||
+        !allowedInterests.has(enquiry.interest) ||
         !enquiry.message
       ) {
         return res.status(400).json({
