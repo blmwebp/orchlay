@@ -1,0 +1,330 @@
+
+/* ======================================
+   PROFESSIONAL SERVICES GRID
+====================================== */
+
+.professional-subservices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 20px;
+
+  /* Cards keep their own heights */
+  align-items: start;
+  min-width: 0;
+}
+
+/* ======================================
+   DYNAMIC CARD WRAPPER
+====================================== */
+
+.professional-flip-card {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 175px;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  perspective: 1200px;
+
+  /* Smooth height expansion and collapse */
+  transition: height 0.6s
+    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.professional-flip-card:focus-visible {
+  outline: 3px solid #008c83;
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+/* ======================================
+   INNER ROTATING ELEMENT
+====================================== */
+
+.professional-flip-inner {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+
+  transition: transform 0.6s
+    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.professional-flip-card.is-flipped
+.professional-flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* ======================================
+   FRONT AND BACK FACES
+====================================== */
+
+.professional-flip-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 175px;
+
+  padding: 22px;
+  box-sizing: border-box;
+
+  border-radius: 14px;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  overflow-wrap: anywhere;
+}
+
+/* FRONT */
+
+.professional-flip-front {
+  background: #ffffff;
+  border: 1px solid #dce6ec;
+
+  box-shadow: 0 5px 18px
+    rgba(23, 54, 93, 0.04);
+
+  transform: rotateY(0deg);
+}
+
+/* BACK */
+
+.professional-flip-back {
+  background: #f5fbfa;
+  border: 1px solid #9bd5ce;
+
+  box-shadow: 0 8px 25px
+    rgba(0, 140, 131, 0.09);
+
+  transform: rotateY(180deg);
+}
+
+/* ======================================
+   FRONT CONTENT
+====================================== */
+
+.professional-flip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.professional-flip-title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #17365d;
+}
+
+.professional-flip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: #e8f6f3;
+  color: #008c83;
+}
+
+.professional-flip-description {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #607287;
+
+  margin-bottom: 18px;
+
+  white-space: normal;
+  overflow: visible;
+}
+
+.professional-flip-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: auto;
+
+  font-size: 11px;
+  font-weight: 700;
+  color: #008c83;
+}
+
+/* ======================================
+   BACK CONTENT
+====================================== */
+
+.professional-flip-back-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.professional-flip-kicker {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: #008c83;
+}
+
+.professional-flip-back-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #17365d;
+}
+
+/* ======================================
+   RESPONSIVE TECHNOLOGY LOGOS
+====================================== */
+
+.professional-flip-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.professional-flip-logo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 72px;
+  padding: 9px 6px;
+
+  box-sizing: border-box;
+  border: 1px solid #e0ebec;
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.professional-flip-logo {
+  display: block;
+  width: 100%;
+  max-width: 100px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.professional-flip-logo-name {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  color: #17365d;
+
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+
+.professional-flip-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 14px;
+
+  font-size: 11px;
+  font-weight: 700;
+  color: #008c83;
+}
+
+.professional-flip-empty {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #607287;
+}
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 767px) {
+  .professional-subservices {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .professional-flip-face {
+    padding: 18px;
+  }
+
+  .professional-flip-logo-tile {
+    min-height: 66px;
+  }
+}
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .professional-flip-card,
+  .professional-flip-inner {
+    transition: none !important;
+  }
+}
+
+/* Professional Services — consistent card spacing */
+
+.professional-subservices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  column-gap: 16px;
+  row-gap: 20px;
+
+  align-items: start;
+  grid-auto-rows: auto;
+  min-width: 0;
+}
+
+.professional-flip-card {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+
+  align-self: start;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .professional-subservices {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 18px;
+  }
+}

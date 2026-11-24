@@ -127,7 +127,7 @@ async function submit(event) {
       <div className="form-bottom">
         <button
           type="submit"
-          className="button button-purple"
+          className="button button-cyan"
           disabled={busy}
         >
           {busy ? "Submitting..." : "Submit Enquiry"}

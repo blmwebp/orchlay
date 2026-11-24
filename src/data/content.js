@@ -180,6 +180,10 @@ export const professionalSubservices = [
 
 export const professionalTechnologies = {
   'data-bi': [
+    { name: 'Microsoft SQL Server', logo: '/partners/bi11.png' },
+    { name: 'Microsoft Azure Data Factory', logo: '/partners/bi2.png' },
+    { name: 'Azure Databricks', logo: '/partners/bi3.png' },
+    { name: 'Azure Synapse Analytics', logo: '/partners/bi4.png' },
     { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
     { name: 'Microsoft Fabric', logo: '/partners/fabric1.png' },
     // { name: 'Azure', logo: '/partners/Azure11.webp' },
@@ -191,21 +195,32 @@ export const professionalTechnologies = {
     { name: 'Power Automate', logo: '/partners/Power_Automate1.svg' },
   ],
   'app-engineering': [
-    // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Microsoft Graph API', logo: '/partners/grapgApi.png' },
+    { name: 'Microsoft Teams', logo: '/partners/msTeams.webp' },
+    { name: 'Microsoft Dynamics', logo: '/partners/MsDynamics1.png' },
     { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
     { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
   ],
   'modernisation': [
     // { name: 'Azure', logo: '/partners/Azure11.webp' },
+    { name: 'Microsoft SQL Server', logo: '/partners/bi11.png' },
+    { name: 'Share Point', logo: '/partners/sharepoint1.webp' },
+    { name: 'Qlik View', logo: '/partners/qlikview.svg' },
+    { name: 'Tableau', logo: '/partners/TB.png' },
+    { name: 'Microsoft .Net', logo: '/partners/Ms.NET.png' },  
     { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
   ],
   'emerging-tech': [
     // { name: 'Azure', logo: '/partners/Azure11.webp' },
-    { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+    // { name: 'Power BI', logo: '/partners/PowerBI1.webp' },
+    { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
+    { name: 'Co-pilot Studio', logo: '/partners/Copilot-Studio.webp' },
+    { name: 'Azure AI Foundry', logo: '/partners/ai-foundry.png' },
   ],
   'advisory': [
     // { name: 'Azure', logo: '/partners/Azure11.webp' },
-    { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
+    // { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
   ],
 }
 

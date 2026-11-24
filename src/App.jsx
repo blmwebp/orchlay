@@ -1,6 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ContactForm from './components/ContactForm.jsx'
 import Icon from './components/Icon.jsx'
+import TextType from './components/TextType.jsx'
+import ProfessionalFlipCard from './components/ProfessionalFlipCard.jsx'
+import HeroServiceEcosystem from './components/HeroServiceEcosystem.jsx'
+import 'animate.css';
+import Particles from "./components/Particles";
+import CircularText from "./components/CircularText/CircularText";
+import { useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
+
 import {
   acterysServices,
   primaryServices,
@@ -13,6 +26,9 @@ import {
 import Team from "./components/Team";
 import { ComposableMap, Geographies, Geography, Graticule, Marker, Line } from "react-simple-maps";
 import worldData from "world-atlas/countries-110m.json";
+
+// Demo LinkedIn URL - replace with official company page URL when available
+const LINKEDIN_DEMO_URL = "https://www.linkedin.com/company/orchlay-solutions";
 
 const process = [
   ['01', 'Understand', 'Clarify business goals, user needs, challenges and constraints.'],
@@ -51,16 +67,78 @@ function Brand({ compact = false, light = false }) {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [professionalOpen, setProfessionalOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [professionalSubmenuOpen, setProfessionalSubmenuOpen] = useState(false)
+  const servicesTimeoutRef = useRef(null)
+  const submenuTimeoutRef = useRef(null)
 
   function closeNavigation() {
     setMenuOpen(false)
-    setProfessionalOpen(false)
+    setServicesOpen(false)
+    setProfessionalSubmenuOpen(false)
   }
 
   function toggleNavigation() {
-    setProfessionalOpen(false)
+    setServicesOpen(false)
+    setProfessionalSubmenuOpen(false)
     setMenuOpen(open => !open)
+  }
+
+  function toggleServicesDropdown() {
+    setServicesOpen(open => !open)
+    setProfessionalSubmenuOpen(false)
+  }
+
+  function toggleProfessionalSubmenu(event) {
+    event.stopPropagation()
+    setProfessionalSubmenuOpen(open => !open)
+  }
+
+  // Clear timeout when component unmounts
+  useEffect(() => {
+    return () => {
+      if (servicesTimeoutRef.current) {
+        clearTimeout(servicesTimeoutRef.current)
+      }
+      if (submenuTimeoutRef.current) {
+        clearTimeout(submenuTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  function handleServicesEnter() {
+    if (window.matchMedia('(min-width: 901px)').matches) {
+      if (servicesTimeoutRef.current) {
+        clearTimeout(servicesTimeoutRef.current)
+      }
+      setServicesOpen(true)
+    }
+  }
+
+  function handleServicesLeave() {
+    if (window.matchMedia('(min-width: 901px)').matches) {
+      servicesTimeoutRef.current = setTimeout(() => {
+        setServicesOpen(false)
+        setProfessionalSubmenuOpen(false)
+      }, 150)
+    }
+  }
+
+  function handleSubmenuEnter() {
+    if (window.matchMedia('(min-width: 901px)').matches) {
+      if (submenuTimeoutRef.current) {
+        clearTimeout(submenuTimeoutRef.current)
+      }
+      setProfessionalSubmenuOpen(true)
+    }
+  }
+
+  function handleSubmenuLeave() {
+    if (window.matchMedia('(min-width: 901px)').matches) {
+      submenuTimeoutRef.current = setTimeout(() => {
+        setProfessionalSubmenuOpen(false)
+      }, 150)
+    }
   }
 
   useEffect(() => {
@@ -88,6 +166,38 @@ function Header() {
     }
   }, [])
 
+  // Navigation data structure for future scalability
+  const navigationData = {
+    services: {
+      label: 'Services Offered',
+      items: [
+        {
+          id: 'professional',
+          label: 'Professional Services',
+          href: '#professional',
+          hasSubmenu: true,
+          submenu: [
+            { id: 'professional-overview', label: 'Professional Services Overview', href: '#professional' },
+            { id: 'data-bi', label: 'Data & BI', href: '#data-bi' },
+            { id: 'modern-workplace', label: 'Modern Workplace', href: '#modern-workplace' },
+            { id: 'app-engineering', label: 'Application Engineering', href: '#app-engineering' },
+            { id: 'modernisation', label: 'Modernisation', href: '#modernisation' },
+            { id: 'emerging-tech', label: 'AI & Emerging Technologies', href: '#emerging-tech' },
+            { id: 'advisory', label: 'Advisory & Architecture', href: '#advisory' },
+          ]
+        },
+        { id: 'acterys', label: 'Acterys', href: '#acterys' },
+        { id: 'managed', label: 'Managed IT Services', href: '#managed' },
+        { id: 'infrastructure', label: 'IT Infrastructure Services', href: '#infrastructure' },
+        { id: 'cloud', label: 'Cloud Services', href: '#cloud' },
+      ]
+    },
+    otherLinks: [
+      { id: 'about', label: 'About', href: '#about' },
+      { id: 'team', label: 'Our Team', href: '#team' },
+    ]
+  }
+
   return (
     <header className={`site-header${menuOpen ? ' mobile-menu-open' : ''}`}>
       <div className="container header-inner">
@@ -110,53 +220,93 @@ function Header() {
           aria-label="Main navigation"
         >
           <div className="nav-scroll-area">
+            {/* Services Offered Dropdown */}
             <div
-              className={`nav-dropdown${professionalOpen ? ' is-open' : ''}`}
+              className={`nav-dropdown ${servicesOpen ? 'is-open' : ''}`}
+              onMouseEnter={handleServicesEnter}
+              onMouseLeave={handleServicesLeave}
             >
               <button
                 type="button"
                 className="nav-dropdown-trigger"
-                aria-expanded={professionalOpen}
-                aria-controls="professional-services-menu"
-                onClick={() => setProfessionalOpen(open => !open)}
+                aria-expanded={servicesOpen}
+                aria-controls="services-menu"
+                onClick={toggleServicesDropdown}
               >
-                Professional Services
+                Services Offered
                 <Icon name="chevron" size={14} />
               </button>
 
               <div
-                id="professional-services-menu"
-                className="nav-dropdown-menu"
+                id="services-menu"
+                className="nav-dropdown-menu nav-dropdown-menu-wide"
+                onMouseEnter={handleServicesEnter}
+                onMouseLeave={handleServicesLeave}
               >
-                <a href="#professional" onClick={closeNavigation}>
-                  Professional Services overview
-                </a>
-                <a href="#data-bi" onClick={closeNavigation}>
-                  Data &amp; BI
-                </a>
-                <a href="#modern-workplace" onClick={closeNavigation}>
-                  Modern Workplace
-                </a>
-                <a href="#app-engineering" onClick={closeNavigation}>
-                  Application Engineering
-                </a>
-                <a href="#modernisation" onClick={closeNavigation}>
-                  Modernisation
-                </a>
-                <a href="#emerging-tech" onClick={closeNavigation}>
-                  AI &amp; Emerging Technologies
-                </a>
+                {navigationData.services.items.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`nav-dropdown-item ${item.hasSubmenu ? 'has-submenu' : ''} ${item.hasSubmenu && professionalSubmenuOpen ? 'submenu-open' : ''}`}
+                    onMouseEnter={() => {
+                      if (item.hasSubmenu && window.matchMedia('(min-width: 901px)').matches) {
+                        handleSubmenuEnter()
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (item.hasSubmenu && window.matchMedia('(min-width: 901px)').matches) {
+                        handleSubmenuLeave()
+                      }
+                    }}
+                  >
+                    {item.hasSubmenu ? (
+                      <>
+                        <button
+                          type="button"
+                          className="nav-submenu-trigger"
+                          aria-expanded={professionalSubmenuOpen}
+                          aria-controls={`${item.id}-submenu`}
+                          onClick={toggleProfessionalSubmenu}
+                        >
+                          {item.label}
+                          <Icon name="chevron" size={12} />
+                        </button>
+                        <div
+                          id={`${item.id}-submenu`}
+                          className="nav-submenu"
+                          onMouseEnter={handleSubmenuEnter}
+                          onMouseLeave={handleSubmenuLeave}
+                        >
+                          {item.submenu.map((subItem) => (
+                            <a
+                              key={subItem.id}
+                              href={subItem.href}
+                              onClick={closeNavigation}
+                            >
+                              {subItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <a href={item.href} onClick={closeNavigation}>
+                        {item.label}
+                      </a>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <a href="#acterys" onClick={closeNavigation}>Acterys</a>
-            <a href="#managed" onClick={closeNavigation}>Managed IT</a>
-            <a href="#infrastructure" onClick={closeNavigation}>
-              IT Infrastructure
-            </a>
-            <a href="#cloud" onClick={closeNavigation}>Cloud Services</a>
-            <a href="#about" onClick={closeNavigation}>About</a>
-            <a href="#team" onClick={closeNavigation}>Our Team</a>
+            {/* Other Links */}
+            {navigationData.otherLinks.map((link) => (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={closeNavigation}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
 
           <a
@@ -178,20 +328,28 @@ function Hero() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="overline light-overline"><span className="overline-bar" /> ORCHLAY SOLUTIONS</p>
-          <h1>Technology.<br /><span>Expertise. Transformation.</span></h1>
-          <p className="hero-lede">We help organisations build, manage and evolve their technology environments — combining specialist people, professional services, infrastructure and cloud capabilities to solve real business challenges.</p>
+          <h1 className="animate__animated animate__zoomInDown">Technology.<br /><span>Expertise. Transformation.</span></h1>
+          <p className="hero-lede">
+            <TextType
+              as="span"
+              text="We help organisations build, manage and evolve their technology environments — combining specialist people, professional services, infrastructure and cloud capabilities to solve real business challenges."
+              typingSpeed={100}
+              initialDelay={700}
+              pauseDuration={5000}
+              loop={false}
+              showCursor={false}
+              typeEffect="fade"
+              mistakes={0}
+              variableSpeed={{ min: 25, max: 45 }}
+            />
+          </p>
           <div className="hero-actions">
             <a className="button button-cyan" href="#contact">Talk to our team <Icon name="arrow" size={18} /></a>
             <a className="text-link light-link" href="#services">Explore our services <Icon name="arrowUp" size={18} /></a>
           </div>
           <div className="hero-footnote"><span className="footnote-line" /> PROFESSIONAL EXPERTISE · RELIABLE DELIVERY · BUSINESS-FOCUSED OUTCOMES</div>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <div className="hero-glow" />
-          <img src="/assets/hero11.png" alt="" />
-          <span className="floating-badge badge-top">DATA + AI</span>
-          <span className="floating-badge badge-bottom">BUILD / MODERNIZE</span>
-        </div>
+        <HeroServiceEcosystem />
       </div>
       <div className="container portfolio-section">
         <div className="portfolio-heading">
@@ -233,12 +391,19 @@ function Services() {
               <strong className="primary-service-name">{service.short}</strong>
             </a>
           ))}
-          <div className="primary-service-card delivery-card">
+          <a
+            href="#how-we-work"
+            className="primary-service-card delivery-card"
+            aria-label="Explore How We Work - Delivery Approach"
+          >
             <span className="primary-service-number">+</span>
             <h3>Designed around your needs</h3>
             <p>Flexible engagement models — project delivery, specialist augmentation, advisory and ongoing service support.</p>
             <strong className="primary-service-name">Delivery Approach</strong>
-          </div>
+            <span className="delivery-card-arrow" aria-hidden="true">
+              <Icon name="arrowDown" size={18} />
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -292,98 +457,75 @@ function ProfessionalServices() {
 
   const technologies = professionalTechnologies[activeService] ?? []
 
-  return (
-    <section id="professional-detail" className="professional-section section-pad">
-      <div className="container">
-        <div className="detail-layout" id="professional" onMouseLeave={handleAreaLeave}>
-          <div className="detail-intro">
-            <p className="overline">01 / PROFESSIONAL SERVICES</p>
-            <h2>Deep expertise across platforms and technologies.</h2>
-            <p>Our professional services bring together consulting, solution design and engineering to help organisations solve complex problems and get more from their technology investments.</p>
-            <ul className="detail-points">
-              <li><Icon name="check" size={16} />Business-led discovery, architecture and solution design</li>
-              <li><Icon name="check" size={16} />Implementation, integration, testing and deployment</li>
-              <li><Icon name="check" size={16} />Application lifecycle, optimisation and support</li>
-              <li><Icon name="check" size={16} />Microsoft expertise complemented by modern and emerging technologies</li>
-            </ul>
-          </div>
-          <div className="professional-subservices"  onPointerLeave={() => setHoveredService(null)}>
-            {professionalSubservices.map((service, index) => {
-              const isSelected = selectedService === service.id
-              const isOpen = activeService === service.id
-              const cardRow = Math.floor(index / 2) * 2 + 1
-              return (
-                <React.Fragment key={service.id}>
-                  <button
-                    id={service.id}
-                    className={`professional-card${isOpen ? ' is-active' : ''}${isSelected ? ' is-selected' : ''}`}
-                    style={{
-                      '--card-row': cardRow,
-                      '--card-column': (index % 2) + 1,
-                    }}
-                    onClick={() => handleCardClick(service.id)}
-                    onPointerEnter={(event) => handleCardEnter(event, service.id)}
-                    aria-expanded={isOpen}
-                    aria-controls={isOpen ? `tech-panel-${service.id}` : undefined}
-                    type="button"
-                  >
-                    <div className="professional-card-inner">
-                      <div className="professional-card-header">
-                        <h3>{service.title}</h3>
-                        <span className="professional-card-arrow" aria-hidden="true">
-                          <Icon name="arrowDown" size={16} />
-                        </span>
-                      </div>
-                      <p>{service.description}</p>
-                      <span className="professional-card-explore">Explore technologies</span>
-                    </div>
-                  </button>
+  
+return (
+  <section
+    id="professional-detail"
+    className="professional-section section-pad"
+  >
+    <div className="container">
+      <div className="detail-layout" id="professional">
 
-                  {isOpen && (
-                    <div
-                      id={`tech-panel-${service.id}`}
-                      className="tech-panel-inline"
-                      style={{ '--panel-row': cardRow + 1 }}
-                      role="region"
-                      aria-label={`Technologies for ${service.title}`}
-                    >
-                      <div className="tech-panel-inner">
-                        <div className="tech-panel-header">
-                          <p className="tech-panel-kicker">TECHNOLOGIES WE WORK WITH</p>
-                          {/* <h2>{service.title}</h2> */}
-                          {/* <button
-                            className="tech-panel-close"
-                            onClick={() => setSelectedService(null)}
-                            aria-label="Close technology panel"
-                            type="button"
-                          >
-                            <Icon name="close" size={20} />
-                          </button> */}
-                        </div>
-                        <div className="tech-panel-logos">
-                          {technologies.map((tech) => (
-                            <div key={tech.name} className="tech-logo-item">
-                              <img
-                                src={tech.logo}
-                                alt={tech.name}
-                                className="tech-logo"
-                                loading="lazy"
-                              />
-                              <span className="tech-logo-name">{tech.name}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </React.Fragment>
-              )
-            })}
-          </div>
+        {/* LEFT SECTION — UNCHANGED */}
+        <div className="detail-intro">
+          <p className="overline">
+            01 / PROFESSIONAL SERVICES
+          </p>
+
+          <h2>
+            Deep expertise across platforms and technologies.
+          </h2>
+
+          <p>
+            Our professional services bring together
+            consulting, solution design and engineering to
+            help organisations solve complex problems and
+            get more from their technology investments.
+          </p>
+
+          <ul className="detail-points">
+            <li>
+              <Icon name="check" size={16} />
+              Business-led discovery, architecture and
+              solution design
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Implementation, integration, testing
+              and deployment
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Application lifecycle, optimisation
+              and support
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Microsoft expertise complemented by
+              modern and emerging technologies
+            </li>
+          </ul>
         </div>
+
+        {/* RIGHT SECTION — FLIP CARDS */}
+        <div className="professional-subservices">
+          {professionalSubservices.map((service) => (
+            <ProfessionalFlipCard
+              key={service.id}
+              service={service}
+              technologies={professionalTechnologies[service.id] ?? []}
+            />
+          ))}
+        </div>
+
       </div>
-    </section>
-  )
+    </div>
+  </section>
+);
+
 }
 
 function ManagedIT() {
@@ -476,8 +618,64 @@ function ManagedIT() {
   )
 }
 function Infrastructure() {
+  const sectionRef = useRef(null);
+  const panelRef = useRef(null);
+useLayoutEffect(() => {
+ 
+  const panel = panelRef.current;
+  if (!panel) return;
+
+  const ctx = gsap.context(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) return;
+
+    const labels = gsap.utils.toArray(
+      ".infra-diagram__label",
+      panel
+    );
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: () => `+=${window.innerHeight * 3.5}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    labels.forEach((label) => {
+      const heading = label.querySelector("h3");
+      const description = label.querySelector("p");
+
+      if (!heading || !description) return;
+
+      timeline.fromTo(
+        [heading, description],
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "none",
+        }
+      );
+
+      timeline.to({}, { duration: 0.35 });
+    });
+  }, panel);
+
+  return () => ctx.revert();
+}, []);
+
   return (
-    <section id="infrastructure-detail" className="infrastructure-section section-pad">
+    <section  ref={sectionRef} id="infrastructure-detail" className="infrastructure-section section-pad">
       <div className="container">
         <div className="infra-diagram" id="infrastructure">
           <div className="detail-intro">
@@ -492,7 +690,7 @@ function Infrastructure() {
             </ul>
             <a className="button button-cyan" href="#contact">Discuss infrastructure requirements <Icon name="arrow" size={18} /></a>
           </div>
-          <div className="infra-diagram__panel">
+          <div className="infra-diagram__panel" ref={panelRef}>
             <img
               className="infra-diagram__tower"
               src="/images/infrastructure-tower.png"
@@ -655,113 +853,198 @@ function Acterys() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section id="what-we-do" className="acterys-section purple-section section-pad">
-      <div className="container">
-        <div className="acterys-grid" id="acterys">
-          <div className="acterys-visual">
+ 
+return (
+  <section
+    id="what-we-do"
+    className="acterys-section purple-section section-pad"
+  >
+    {/* ========================================
+        REACT BITS PARTICLES BACKGROUND
+        ======================================== */}
+    <div
+      className="acterys-particles-bg"
+      aria-hidden="true"
+    >
+      <Particles
+        particleColors={["#ffffff"]}
+        particleCount={200}
+        particleSpread={10}
+        speed={0.1}
+        particleBaseSize={100}
+        alphaParticles={true}
+        moveParticlesOnHover={false}
+        particleHoverFactor={1}
+        sizeRandomness={1}
+        cameraDistance={20}
+        pixelRatio={1}
+      />
+    </div>
 
-            <p className="overline light-overline">
-              02 / ACTERYS
-            </p>
+    {/* ========================================
+        EXISTING ACTERYS CONTENT
+        ======================================== */}
+    <div className="container">
+      <div className="acterys-grid" id="acterys">
 
-            <h2>
-              Planning that connects with your data<span className="cyan-period">.</span>
-            </h2>
-            {/* Existing planning dashboard */}
-            <div className="dashboard-frame">
+        {/* LEFT SIDE — VISUAL AND SLIDER */}
+        <div className="acterys-visual">
+
+          <p className="overline light-overline">
+            02 / ACTERYS
+          </p>
+
+          <h2>
+            Planning that connects with your data
+            <span className="cyan-period">.</span>
+          </h2>
+
+          {/* Existing planning dashboard */}
+          <div className="dashboard-frame">
+            <img
+              src="/assets/planning.svg"
+              alt="Connected planning dashboard"
+            />
+          </div>
+
+          {/* Existing service highlight / rotating text */}
+          <div
+            key={active}
+            className="acterys-highlight"
+            aria-live="off"
+          >
+            <span className="highlight-counter">
+              0{active + 1} / 0{acterysServices.length}
+            </span>
+
+            <div
+              key={active}
+              className="acterys-slide-content"
+            >
+              <h4>{selected.title}</h4>
+              <p>{selected.body}</p>
+            </div>
+          </div>
+
+          {/* Existing slider controls */}
+          <div
+            className="slide-controls"
+            aria-label="Acterys service topics"
+          >
+            {acterysServices.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                className={index === active ? "active" : ""}
+                aria-label={`Show ${item.title}`}
+                aria-pressed={index === active}
+                onClick={() => setActive(index)}
+              />
+            ))}
+          </div>
+
+        </div>
+
+        {/* RIGHT SIDE — ACTERYS CONTENT */}
+        <div className="acterys-copy">
+
+          <span className="partner-kicker">
+            PLANNING &amp; DECISION INTELLIGENCE
+          </span>
+
+          <h3>
+            Connect planning, performance
+            <br />
+            <span>and analytics.</span>
+          </h3>
+
+          <p>
+            Orchlay supports Acterys-related planning and
+            analytics initiatives, helping organisations
+            design and implement connected planning
+            workflows using Acterys and Microsoft
+            technologies.
+          </p>
+
+          <ul className="acterys-capabilities">
+            <li>
+              <Icon name="check" size={16} />
+              Budgeting, forecasting and financial planning
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Power BI-based planning and write-back scenarios
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Data integration, modelling and reporting
+              alignment
+            </li>
+
+            <li>
+              <Icon name="check" size={16} />
+              Implementation, enablement and ongoing
+              optimisation
+            </li>
+          </ul>
+
+          {/* Technology Partner */}
+          <div className="acterys-partnership">
+
+            <div className="partnership-heading">
+              <div className="partnership-icon">
+                <Icon name="check" size={14} />
+              </div>
+
+              <span>SERVICE PROVIDER</span>
+            </div>
+
+            <div className="partnership-logo-wrap">
               <img
-                src="/assets/planning.svg"
-                alt="Connected planning dashboard"
+                src="/assets/acterys.svg"
+                alt="Acterys"
+                className="partnership-logo"
               />
             </div>
 
+            <p className="partnership-description">
+              Certified provider for connected planning,
+              budgeting and analytics solutions powered by
+              Acterys and Microsoft technologies.
+            </p>
+          </div>
 
+          {/* Action Buttons */}
+          <div className="acterys-actions">
 
-            {/* Partnership badge */}
-            <div key={active} className="acterys-highlight" aria-live="off" >
-              <span className="highlight-counter">0{active + 1} / 0{acterysServices.length}</span>
-              <div key={active} className="acterys-slide-content">
-                <h4>{selected.title}</h4>
-                <p>{selected.body}</p>
-              </div>
-            </div>
-
-
-
-            {/* Existing slider controls */}
-            <div
-              className="slide-controls"
-              aria-label="Acterys service topics"
+            <a
+              href="#contact"
+              className="button acterys-primary-btn"
             >
-              {acterysServices.map((item, index) => (
-                <button
-                  key={item.title}
-                  type="button"
-                  className={index === active ? "active" : ""}
-                  aria-label={`Show ${item.title}`}
-                  aria-pressed={index === active}
-                  onClick={() => setActive(index)}
-                />
-              ))}
-            </div>
+              Discuss an Acterys project
+              <Icon name="arrow" size={18} />
+            </a>
+
+            <a
+              href="https://acterys.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button acterys-secondary-btn"
+            >
+              Explore Acterys
+              <Icon name="arrowUp" size={18} />
+            </a>
 
           </div>
-          <div className="acterys-copy">
-            <span className="partner-kicker">PLANNING & DECISION INTELLIGENCE</span>
-            <h3>Connect planning, performance<br /><span>and analytics.</span></h3>
-            <p>Orchlay supports Acterys-related planning and analytics initiatives, helping organisations design and implement connected planning workflows using Acterys and Microsoft technologies.</p>
-            <ul className="acterys-capabilities">
-              <li><Icon name="check" size={16} />Budgeting, forecasting and financial planning</li>
-              <li><Icon name="check" size={16} />Power BI-based planning and write-back scenarios</li>
-              <li><Icon name="check" size={16} />Data integration, modelling and reporting alignment</li>
-              <li><Icon name="check" size={16} />Implementation, enablement and ongoing optimisation</li>
-            </ul>
-            {/* Technology Partner */}
-            <div className="acterys-partnership">
-              <div className="partnership-heading">
-                <div className="partnership-icon">
-                  <Icon name="check" size={14} />
-                </div>
-                <span>SERVICE PROVIDER</span>
-              </div>
-              <div className="partnership-logo-wrap">
-                <img
-                  src="/assets/acterys.svg"
-                  alt="Acterys"
-                  className="partnership-logo"
-                />
-              </div>
-              <p className="partnership-description">
-                Certified provider for connected planning, budgeting and analytics solutions powered by Acterys and Microsoft technologies.
-              </p>
-            </div>
-            <div className="acterys-actions">
 
-              <a
-                href="#contact"
-                className="button acterys-primary-btn"
-              >
-                Discuss an Acterys project
-                <Icon name="arrow" size={18} />
-              </a>
-
-              <a
-                href="https://acterys.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button acterys-secondary-btn"
-              >
-                Explore Acterys
-                <Icon name="arrowUp" size={18} />
-              </a>
-
-            </div>
-          </div>
         </div>
       </div>
-    </section>
-  )
+    </div>
+  </section>
+);
+
 }
 
 
@@ -895,76 +1178,69 @@ function ExperienceMap() {
             opacity={0.8}
           />
 
+          
           {/* Country markers */}
-          {Object.entries(locations).map(
-            ([key, location]) => {
+          {Object.entries(locations).map(([key, location]) => {
+            const isIndia = key === "india";
 
-              const isIndia = key === "india";
+            return (
+              <Marker
+                key={key}
+                coordinates={location.coordinates}
+              >
+                {/* Continuous expanding pulse */}
+                <circle
+                  className={`map-marker-pulse ${isIndia ? "pulse-india" : "pulse-delivery"
+                    }`}
+                  r={7}
+                  fill="none"
+                  stroke={isIndia ? "#D4AF37" : "#52D3C8"}
+                  strokeWidth={1.8}
+                />
 
-              return (
-                <Marker
-                  key={key}
-                  coordinates={location.coordinates}
+                {/* Soft outer glow */}
+                <circle
+                  className={`map-marker-glow ${isIndia ? "glow-india" : "glow-delivery"
+                    }`}
+                  r={11}
+                  fill={isIndia ? "#D4AF37" : "#52D3C8"}
+                  opacity={0.12}
+                />
+
+                {/* Outer marker */}
+                <circle
+                  r={7}
+                  fill={isIndia ? "#D4AF37" : "#52D3C8"}
+                  opacity={0.28}
+                />
+
+                {/* Main blinking dot */}
+                <circle
+                  className={`map-marker-dot ${isIndia ? "dot-india" : "dot-delivery"
+                    }`}
+                  r={3.5}
+                  fill={isIndia ? "#D4AF37" : "#52D3C8"}
+                  stroke="#FFFFFF"
+                  strokeWidth={1.1}
+                />
+
+                {/* Country label — unchanged */}
+                <text
+                  x={location.labelX}
+                  y={location.labelY}
+                  textAnchor={location.anchor}
+                  className={
+                    isIndia
+                      ? "map-country-label map-label-india"
+                      : "map-country-label"
+                  }
                 >
+                  {location.name}
+                </text>
+              </Marker>
+            );
+          })}
 
-                  {/* India base pulse */}
-                  {isIndia && (
-                    <>
-                      <circle
-                        r={19}
-                        fill="#D4AF37"
-                        opacity={0.12}
-                      />
-
-                      <circle
-                        r={12}
-                        fill="#D4AF37"
-                        opacity={0.20}
-                      />
-                    </>
-                  )}
-
-                  {/* Outer marker */}
-                  <circle
-                    r={7}
-                    fill={
-                      isIndia
-                        ? "#D4AF37"
-                        : "#52D3C8"
-                    }
-                    opacity={0.28}
-                  />
-
-                  {/* Main marker */}
-                  <circle
-                    r={3.5}
-                    fill={
-                      isIndia
-                        ? "#D4AF37"
-                        : "#52D3C8"
-                    }
-                    stroke="#FFFFFF"
-                    strokeWidth={1.1}
-                  />
-
-                  {/* Country label */}
-                  <text
-                    x={location.labelX}
-                    y={location.labelY}
-                    textAnchor={location.anchor}
-                    className={
-                      isIndia
-                        ? "map-country-label map-label-india"
-                        : "map-country-label"
-                    }
-                  >
-                    {location.name}
-                  </text>
-
-                </Marker>
-              );
-            }
-          )}
 
         </ComposableMap>
       </div>
@@ -1093,32 +1369,88 @@ function About() {
           </div>
         </section>
 </div>
-        <section className="work-sequence" aria-labelledby="about-process-title">
-          <div className="container">
-            <p className="work-sequence__eyebrow">HOW WE WORK</p>
+        
+<section
+  id="how-we-work"
+  className="work-sequence"
+  aria-labelledby="about-process-title"
+>
+  {/* Top-left decorative rotating text circle */}
+  <div
+    className="work-sequence__circle work-sequence__circle--top"
+    aria-hidden="true"
+  >
+    <CircularText
+      text="DISCOVER • DESIGN • DELIVER • EVOLVE • "
+      spinDuration={25}
+      direction="clockwise"
+      size={170}
+      fontSize={18}
+      fontWeight={800}
+      color="#55706e"
+      ring={true}
+      ringColor="rgba(0, 140, 131, 0.18)"
+      draggable={false}
+      hoverTilt={0}
+      className="work-sequence__circular-text"
+    />
+  </div>
 
-            <h3 id="about-process-title">
-              From understanding to continuous improvement.
-            </h3>
+  {/* Bottom-right decorative rotating text circle */}
+  <div
+    className="work-sequence__circle work-sequence__circle--bottom"
+    aria-hidden="true"
+  >
+    <CircularText
+      text="COLLABORATE • IMPROVE • TRANSFORM • "
+      spinDuration={30}
+      direction="counterclockwise"
+      size={170}
+      fontSize={17}
+      fontWeight={800}
+      color="#55706e"
+      ring={true}
+      ringColor="rgba(212, 175, 55, 0.25)"
+      draggable={false}
+      hoverTilt={0}
+      className="work-sequence__circular-text"
+    />
+  </div>
 
-            <p className="work-sequence__intro">
-              A clear, collaborative delivery approach that takes each engagement
-              from the initial business need through to ongoing improvement.
-            </p>
+  {/* Existing section content — unchanged */}
+  <div className="container">
+    <p className="work-sequence__eyebrow">
+      HOW WE WORK
+    </p>
 
-            <ol className="work-sequence__list">
-              {process.map(([number, title, body]) => (
-                <li key={number}>
-                  <span className="work-sequence__number" aria-hidden="true">
-                    {String(number).padStart(2, '0')}
-                  </span>
-                  <h4>{title}</h4>
-                  <p>{body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+    <h3 id="about-process-title">
+      From understanding to continuous improvement.
+    </h3>
+
+    <p className="work-sequence__intro">
+      A clear, collaborative delivery approach that takes
+      each engagement from the initial business need
+      through to ongoing improvement.
+    </p>
+
+    <ol className="work-sequence__list">
+      {process.map(([number, title, body]) => (
+        <li key={number}>
+          <span
+            className="work-sequence__number"
+            aria-hidden="true"
+          >
+            {String(number).padStart(2, "0")}
+          </span>
+
+          <h4>{title}</h4>
+          <p>{body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
       
     </section>
   )
@@ -1182,6 +1514,18 @@ function Footer() {
             <a href="#infrastructure">IT Infrastructure</a>
             <a href="#cloud">Cloud Services</a>
           </nav>
+
+          <div className="footer-social">
+            <a
+              href={LINKEDIN_DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Orchlay Solutions on LinkedIn"
+              className="footer-social-link"
+            >
+              <Icon name="linkedin" size={20} />
+            </a>
+          </div>
         </div>
 
         <div className="footer-bottom">
