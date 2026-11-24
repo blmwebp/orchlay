@@ -1493,6 +1493,7 @@ function ClosingCTA() {
   )
 }
 
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -1507,49 +1508,64 @@ function Footer() {
             </p>
           </div>
 
-          <nav className="footer-links" aria-label="Footer navigation">
-            <a href="#professional">Professional Services</a>
-            <a href="#acterys">Acterys</a>
-            <a href="#managed">Managed IT</a>
-            <a href="#infrastructure">IT Infrastructure</a>
-            <a href="#cloud">Cloud Services</a>
-          </nav>
+          {/* Footer links + LinkedIn */}
 
-          <div className="footer-social">
-            <a
-              href={LINKEDIN_DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Orchlay Solutions on LinkedIn"
-              className="footer-social-link"
-            >
-              <Icon name="linkedin" size={20} />
-            </a>
+          <div className="footer-navigation">
+            {/* Row 1 — Navigation links */}
+            <nav className="footer-links" aria-label="Footer navigation">
+              <a href="#professional">Professional Services</a>
+              <a href="#acterys">Acterys</a>
+              <a href="#managed">Managed IT</a>
+              <a href="#infrastructure">IT Infrastructure</a>
+              <a href="#cloud">Cloud Services</a>
+            </nav>
+
+            {/* Row 2 — LinkedIn at the right end */}
+            <div className="footer-social">
+              <a
+                href={LINKEDIN_DEMO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Orchlay Solutions on LinkedIn"
+                className="footer-social-link"
+              >
+                <Icon name="linkedin" size={20} />
+              </a>
+            </div>
           </div>
+
         </div>
 
         <div className="footer-bottom">
           <small className="footer-copyright">
-            © {new Date().getFullYear()} Orchlay Solutions Pvt Ltd. All rights
-            reserved.
+            © {new Date().getFullYear()} Orchlay Solutions Pvt Ltd.
+            All rights reserved.
           </small>
 
           <small className="footer-credit">
-            Developed by <a href="https://blmindia.com/">Big Leaf Media</a>
+            Developed by{" "}
+            <a href="https://blmindia.com/">Big Leaf Media</a>
           </small>
 
           <div className="footer-end">
-            <small>United States · Australia · India delivery experience</small>
+            <small>
+              United States · Australia · India delivery experience
+            </small>
 
-            <a href="#home" className="footer-back-to-top" aria-label="Back to top">
+            <a
+              href="#home"
+              className="footer-back-to-top"
+              aria-label="Back to top"
+            >
               <span aria-hidden="true">↑</span>
             </a>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
+
 export default function App() {
   return <>
     <a className="skip-link" href="#main-content">Skip to content</a>
