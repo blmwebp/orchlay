@@ -3,7 +3,7 @@ export const teamMembers = [
     id: 1,
     name: "Anupama Agarwal",
     role: "Founder & Director",
-    image: "/teams/t1.jpg",
+    image: "/teams/anuoama.jpg",
     desc: "Serial entrepreneur and Microsoft specialist with 22+ years of experience in technology consulting and business solutions. Anupama brings a business-focused perspective to technology strategy, client engagement and solution delivery.",
      expertise: [
       "Leadership",
@@ -15,7 +15,7 @@ export const teamMembers = [
     id: 2,
     name: "Sean Gallinetti",
     role: "Principal Architect",
-    image: "/teams/t2.webp",
+    image: "/teams/sean.avif",
     desc: "Principal Architect specialising in cloud and Azure solutions, with expertise across SharePoint. Focused on shaping robust architectures and practical technology solutions.",
     expertise: [
       "Cloud",

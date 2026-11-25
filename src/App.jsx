@@ -28,7 +28,7 @@ import { ComposableMap, Geographies, Geography, Graticule, Marker, Line } from "
 import worldData from "world-atlas/countries-110m.json";
 
 // Demo LinkedIn URL - replace with official company page URL when available
-const LINKEDIN_DEMO_URL = "https://www.linkedin.com/company/orchlay-solutions";
+const LINKEDIN_URL = " https://www.linkedin.com/company/orchlay/";
 
 const process = [
   ['01', 'Understand', 'Clarify business goals, user needs, challenges and constraints.'],
@@ -324,7 +324,7 @@ function Header() {
 
 function Hero() {
   return (
-    <section id="home" className="hero purple-section">
+    <section id="home" className="hero  purple-section">
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="overline light-overline"><span className="overline-bar" /> ORCHLAY SOLUTIONS</p>
@@ -620,59 +620,67 @@ function ManagedIT() {
 function Infrastructure() {
   const sectionRef = useRef(null);
   const panelRef = useRef(null);
+
 useLayoutEffect(() => {
- 
+  const section = sectionRef.current;
   const panel = panelRef.current;
-  if (!panel) return;
 
-  const ctx = gsap.context(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+  if (!section || !panel) return;
 
-    if (reduceMotion) return;
+  const mm = gsap.matchMedia();
 
-    const labels = gsap.utils.toArray(
-      ".infra-diagram__label",
-      panel
-    );
+  mm.add(
+    "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+    () => {
+      const ctx = gsap.context(() => {
+        const labels = gsap.utils.toArray(
+          ".infra-diagram__label",
+          panel
+        );
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${window.innerHeight * 3.5}`,
-        pin: true,
-        pinSpacing: true,
-        scrub: 0.8,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${window.innerHeight * 3.5}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
 
-    labels.forEach((label) => {
-      const heading = label.querySelector("h3");
-      const description = label.querySelector("p");
+        labels.forEach((label) => {
+          const heading = label.querySelector("h3");
+          const description = label.querySelector("p");
 
-      if (!heading || !description) return;
+          if (!heading || !description) return;
 
-      timeline.fromTo(
-        [heading, description],
-        { autoAlpha: 0 },
-        {
-          autoAlpha: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "none",
-        }
-      );
+          timeline.fromTo(
+            [heading, description],
+            {
+              autoAlpha: 0,
+            },
+            {
+              autoAlpha: 1,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "none",
+            }
+          );
 
-      timeline.to({}, { duration: 0.35 });
-    });
-  }, panel);
+          timeline.to({}, { duration: 0.35 });
+        });
+      }, section);
 
-  return () => ctx.revert();
+      return () => ctx.revert();
+    }
+  );
+
+  return () => mm.revert();
 }, []);
+
 
   return (
     <section  ref={sectionRef} id="infrastructure-detail" className="infrastructure-section section-pad">
@@ -1218,10 +1226,10 @@ function ExperienceMap() {
                 <circle
                   className={`map-marker-dot ${isIndia ? "dot-india" : "dot-delivery"
                     }`}
-                  r={3.5}
+                  r={7.5}
                   fill={isIndia ? "#D4AF37" : "#52D3C8"}
                   stroke="#FFFFFF"
-                  strokeWidth={1.1}
+                  strokeWidth={2.1}
                 />
 
                 {/* Country label — unchanged */}
@@ -1319,7 +1327,7 @@ function ExperienceMap() {
 function About() {
   return (
     <section id="about" className="about-profile" aria-labelledby="about-title">
-      <header className="about-profile__hero">
+      <header className="about-profile__hero section-pad">
         <div className="container about-profile__hero-inner">
           <div className="about-profile__brief">
             <p className="about-profile__eyebrow">ABOUT ORCHLAY</p>
@@ -1351,7 +1359,7 @@ function About() {
         </div>
       </header>
 
-      <div className="container about-profile__body">
+      <div className="container section-pad about-profile__body">
         <section aria-labelledby="about-values-title">
           <p className="about-profile__eyebrow">WHY ORCHLAY</p>
           <h3 id="about-values-title">Our value proposition</h3>
@@ -1368,88 +1376,88 @@ function About() {
             ))}
           </div>
         </section>
-</div>
+      </div>
         
-<section
-  id="how-we-work"
-  className="work-sequence"
-  aria-labelledby="about-process-title"
->
-  {/* Top-left decorative rotating text circle */}
-  <div
-    className="work-sequence__circle work-sequence__circle--top"
-    aria-hidden="true"
-  >
-    <CircularText
-      text="DISCOVER • DESIGN • DELIVER • EVOLVE • "
-      spinDuration={25}
-      direction="clockwise"
-      size={170}
-      fontSize={18}
-      fontWeight={800}
-      color="#55706e"
-      ring={true}
-      ringColor="rgba(0, 140, 131, 0.18)"
-      draggable={false}
-      hoverTilt={0}
-      className="work-sequence__circular-text"
-    />
-  </div>
+      <section
+        id="how-we-work"
+        className="work-sequence section-pad"
+        aria-labelledby="about-process-title"
+      >
+        {/* Top-left decorative rotating text circle */}
+        <div
+          className="work-sequence__circle work-sequence__circle--top"
+          aria-hidden="true"
+        >
+          <CircularText
+            text="DISCOVER • DESIGN • DELIVER • EVOLVE • "
+            spinDuration={25}
+            direction="clockwise"
+            size={170}
+            fontSize={18}
+            fontWeight={800}
+            color="#55706e"
+            ring={true}
+            ringColor="rgba(0, 140, 131, 0.18)"
+            draggable={false}
+            hoverTilt={0}
+            className="work-sequence__circular-text"
+          />
+        </div>
 
-  {/* Bottom-right decorative rotating text circle */}
-  <div
-    className="work-sequence__circle work-sequence__circle--bottom"
-    aria-hidden="true"
-  >
-    <CircularText
-      text="COLLABORATE • IMPROVE • TRANSFORM • "
-      spinDuration={30}
-      direction="counterclockwise"
-      size={170}
-      fontSize={17}
-      fontWeight={800}
-      color="#55706e"
-      ring={true}
-      ringColor="rgba(212, 175, 55, 0.25)"
-      draggable={false}
-      hoverTilt={0}
-      className="work-sequence__circular-text"
-    />
-  </div>
+        {/* Bottom-right decorative rotating text circle */}
+        <div
+          className="work-sequence__circle work-sequence__circle--bottom"
+          aria-hidden="true"
+        >
+          <CircularText
+            text="COLLABORATE • IMPROVE • TRANSFORM • "
+            spinDuration={30}
+            direction="counterclockwise"
+            size={170}
+            fontSize={17}
+            fontWeight={800}
+            color="#55706e"
+            ring={true}
+            ringColor="rgba(212, 175, 55, 0.25)"
+            draggable={false}
+            hoverTilt={0}
+            className="work-sequence__circular-text"
+          />
+        </div>
 
-  {/* Existing section content — unchanged */}
-  <div className="container">
-    <p className="work-sequence__eyebrow">
-      HOW WE WORK
-    </p>
+        {/* Existing section content — unchanged */}
+        <div className="container">
+          <p className="work-sequence__eyebrow">
+            HOW WE WORK
+          </p>
 
-    <h3 id="about-process-title">
-      From understanding to continuous improvement.
-    </h3>
+          <h3 id="about-process-title">
+            From understanding to continuous improvement.
+          </h3>
 
-    <p className="work-sequence__intro">
-      A clear, collaborative delivery approach that takes
-      each engagement from the initial business need
-      through to ongoing improvement.
-    </p>
+          <p className="work-sequence__intro">
+            A clear, collaborative delivery approach that takes
+            each engagement from the initial business need
+            through to ongoing improvement.
+          </p>
 
-    <ol className="work-sequence__list">
-      {process.map(([number, title, body]) => (
-        <li key={number}>
-          <span
-            className="work-sequence__number"
-            aria-hidden="true"
-          >
-            {String(number).padStart(2, "0")}
-          </span>
+          <ol className="work-sequence__list">
+            {process.map(([number, title, body]) => (
+              <li key={number}>
+                <span
+                  className="work-sequence__number"
+                  aria-hidden="true"
+                >
+                  {String(number).padStart(2, "0")}
+                </span>
 
-          <h4>{title}</h4>
-          <p>{body}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
-</section>
+                <h4>{title}</h4>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       
     </section>
@@ -1509,9 +1517,9 @@ function Footer() {
           </div>
 
           {/* Footer links + LinkedIn */}
-
           <div className="footer-navigation">
-            {/* Row 1 — Navigation links */}
+
+            {/* Navigation links — two columns on mobile */}
             <nav className="footer-links" aria-label="Footer navigation">
               <a href="#professional">Professional Services</a>
               <a href="#acterys">Acterys</a>
@@ -1520,10 +1528,10 @@ function Footer() {
               <a href="#cloud">Cloud Services</a>
             </nav>
 
-            {/* Row 2 — LinkedIn at the right end */}
+            {/* Separate social icons column */}
             <div className="footer-social">
               <a
-                href={LINKEDIN_DEMO_URL}
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Orchlay Solutions on LinkedIn"
@@ -1532,7 +1540,9 @@ function Footer() {
                 <Icon name="linkedin" size={20} />
               </a>
             </div>
+
           </div>
+
 
         </div>
 

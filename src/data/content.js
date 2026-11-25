@@ -193,6 +193,8 @@ export const professionalTechnologies = {
     { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
     { name: 'Power Apps', logo: '/partners/powerapps1.png' },
     { name: 'Power Automate', logo: '/partners/Power_Automate1.svg' },
+    { name: 'Power Pages', logo: '/partners/Power_Pages.png' },
+    { name: 'Dataverse', logo: '/partners/microsoft-dataverse.png' },
   ],
   'app-engineering': [
     { name: 'Azure', logo: '/partners/Azure11.webp' },
@@ -217,6 +219,9 @@ export const professionalTechnologies = {
     { name: 'Microsoft 365', logo: '/partners/microsoft-365.png' },
     { name: 'Co-pilot Studio', logo: '/partners/Copilot-Studio.webp' },
     { name: 'Azure AI Foundry', logo: '/partners/ai-foundry.png' },
+    { name: 'Search AI', logo: '/partners/serverless-search.png' },
+    { name: 'Azure Open AI', logo: '/partners/azure-openai.png' },
+    { name: 'Git-hub Co-pilot', logo: '/partners/copilot.png' },
   ],
   'advisory': [
     // { name: 'Azure', logo: '/partners/Azure11.webp' },

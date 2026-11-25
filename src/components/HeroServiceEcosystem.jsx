@@ -30,7 +30,7 @@ const heroServices = [
   },
   {
     id: 'infrastructure',
-    title: 'IT Infrastructure Services',
+    title: 'IT Infrastructure',
     icon: 'database',
     href: '#infrastructure',
   },
