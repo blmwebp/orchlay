@@ -328,7 +328,7 @@ function Hero() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="overline light-overline"><span className="overline-bar" /> ORCHLAY SOLUTIONS</p>
-          <h1 className="animate__animated animate__zoomInDown">Technology.<br /><span>Expertise. Transformation.</span></h1>
+          <h1 className="animate__animated animate__zoomInDown animate__slow	1s">Technology.<br /><span>Expertise. Transformation.</span></h1>
           <p className="hero-lede">
             <TextType
               as="span"
