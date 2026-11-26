@@ -27,7 +27,7 @@ export const teamMembers = [
     id: 3,
     name: "Tuhin Ghosh",
     role: "Senior Consultant",
-    image: "",
+    image: "/teams/tuhin.png",
     desc: "Senior Consultant specialising in data, business intelligence and Power BI, including planning solutions that help organisations turn information into actionable insight.",
     expertise: [
       "Data & BI",
